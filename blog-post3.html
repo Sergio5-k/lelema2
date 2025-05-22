@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Process Optimization: Case Studies from Top Performers - Lelema Consultants</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;600&family=Roboto:wght@100;200;300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        :root {
+            --primary: #1e90ff;
+            --primary-dark: #187bcd;
+            --text-dark: #2d3436;
+            --text-light: #dfe6e9;
+            --bg-light: #f8f9fa;
+            --white: #ffffff;
+            --transition: all 0.3s ease-out;
+            --glow: 0 0 8px rgba(30, 144, 255, 0.3);
+            --gradient: linear-gradient(135deg, #1e90ff, #4dabf7);
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 0.8rem 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-img {
+            height: 40px;
+            transition: var(--transition);
+        }
+
+        .logo-img:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 300;
+            font-family: 'Roboto', sans-serif;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--gradient);
+            transition: var(--transition);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+        }
+
+        .menu-toggle {
+            display: none;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        .burger {
+            width: 24px;
+            height: 2px;
+            background: var(--text-dark);
+            position: relative;
+        }
+
+        .burger::before,
+        .burger::after {
+            content: '';
+            position: absolute;
+            width: 24px;
+            height: 2px;
+            background: var(--text-dark);
+        }
+
+        .burger::before {
+            transform: translateY(-8px);
+        }
+
+        .burger::after {
+            transform: translateY(8px);
+        }
+
+        .menu-toggle.active .burger {
+            background: transparent;
+        }
+
+        .menu-toggle.active .burger::before {
+            transform: rotate(45deg);
+        }
+
+        .menu-toggle.active .burger::after {
+            transform: rotate(-45deg);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 280px;
+            height: 100vh;
+            background: var(--white);
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+            z-index: 999;
+            transition: var(--transition);
+            padding: 80px 30px 30px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu .nav-link {
+            font-size: 1rem;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            display: block;
+        }
+
+        .mobile-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 998;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .mobile-menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: url('process-blog-bg.jpg') no-repeat center center/cover, var(--gradient);
+            background-blend-mode: overlay;
+            text-align: center;
+            padding: 6rem 0;
+            color: var(--white);
+        }
+
+        .hero-content {
+            max-width: 800px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 400;
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-meta {
+            font-size: 0.9rem;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 300;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+        }
+
+        .hero-meta span {
+            margin: 0 0.5rem;
+        }
+
+        /* Article Content */
+        .article-container {
+            display: flex;
+            gap: 2rem;
+            padding: 4rem 0;
+        }
+
+        .article-main {
+            max-width: 800px;
+            flex: 3;
+        }
+
+        .article-section {
+            margin-bottom: 3rem;
+        }
+
+        .article-section h2 {
+            font-size: 1.8rem;
+            font-weight: 400;
+            font-family: 'Roboto', sans-serif;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .article-section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--gradient);
+        }
+
+        .article-section h3 {
+            font-size: 1.4rem;
+            font-weight: 400;
+            font-family: 'Roboto', sans-serif;
+            margin: 1.5rem 0 1rem;
+            color: var(--text-dark);
+        }
+
+        .article-section p {
+            font-size: 0.9rem;
+            font-weight: 300;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .article-image {
+            max-width: 600px;
+            margin: 2rem auto;
+            text-align: center;
+        }
+
+        .article-image img {
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+
+        .article-image img:hover {
+            transform: scale(1.02);
+        }
+
+        .article-image figcaption {
+            font-size: 0.8rem;
+            font-style: italic;
+            color: var(--text-dark);
+            opacity: 0.7;
+            margin-top: 0.5rem;
+        }
+
+        .pull-quote {
+            font-size: 1.2rem;
+            font-family: 'Roboto', sans-serif;
+            font-style: italic;
+            font-weight: 300;
+            color: var(--text-dark);
+            border-left: 4px solid var(--primary);
+            padding: 1rem 1.5rem;
+            margin: 2rem 0;
+            background: var(--white);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .stat-callout {
+            background: var(--white);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .stat-callout h3 {
+            font-size: 2rem;
+            font-weight: 400;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-callout p {
+            font-size: 0.9rem;
+            font-weight: 300;
+            color: var(--text-dark);
+        }
+
+        /* Sidebar */
+        .article-sidebar {
+            max-width: 250px;
+            flex: 1;
+            position: sticky;
+            top: 100px;
+            align-self: flex-start;
+        }
+
+        .toc {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .toc h3 {
+            font-size: 1.2rem;
+            font-weight: 400;
+            font-family: 'Roboto', sans-serif;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .toc ul {
+            list-style: none;
+        }
+
+        .toc li {
+            margin-bottom: 0.8rem;
+        }
+
+        .toc a {
+            font-size: 0.85rem;
+            font-weight: 300;
+            color: var(--text-dark);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .toc a:hover {
+            color: var(--primary);
+        }
+
+        .author-bio {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .author-bio h3 {
+            font-size: 1.2rem;
+            font-weight: 400;
+            font-family: 'Roboto', sans-serif;
+            margin-bottom: 0.5rem;
+        }
+
+        .author-bio p {
+            font-size: 0.85rem;
+            font-weight: 300;
+            line-height: 1.6;
+            color: var(--text-dark);
+        }
+
+        .related-articles h3 {
+            font-size: 1.2rem;
+            font-weight: 400;
+            font-family: 'Roboto', sans-serif;
+            margin-bottom: 1rem;
+        }
+
+        .related-articles ul {
+            list-style: none;
+        }
+
+        .related-articles li {
+            margin-bottom: 0.8rem;
+        }
+
+        .related-articles a {
+            font-size: 0.85rem;
+            font-weight: 300;
+            color: var(--text-dark);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .related-articles a:hover {
+            color: var(--primary);
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 0.7rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 400;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            min-width: 110px;
+            text-align: center;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: var(--transition);
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: var(--glow);
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Sticky CTA */
+        .sticky-cta {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            background: var(--gradient);
+            color: var(--white);
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            box-shadow: var(--glow);
+            z-index: 1000;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .sticky-cta:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 16px rgba(30, 144, 255, 0.8);
+        }
+
+        /* WhatsApp Float */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #25D366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--text-dark);
+            color: var(--text-light);
+            padding: 1.5rem 0;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 1.5rem;
+            padding: 0 1rem;
+        }
+
+        .footer-column {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .footer-logo img {
+            height: 40px;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-column h3 {
+            font-size: 1rem;
+            font-weight: 400;
+            color: var(--white);
+        }
+
+        .footer-column p,
+        .footer-column a {
+            font-size: 0.8rem;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 300;
+            color: var(--text-light);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-column a:hover {
+            color: var(--primary);
+        }
+
+        .footer-social .social-icons {
+            display: flex;
+            gap: 0.8rem;
+            margin-top: 0.5rem;
+        }
+
+        .footer-social a {
+            color: var(--text-light);
+            font-size: 1.2rem;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.75rem;
+        }
+
+        /* Cookies Popup */
+        .cookies-popup {
+            position: fixed;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 1001;
+            max-width: 320px;
+            display: none;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .cookies-popup.active {
+            display: flex;
+        }
+
+        .cookies-text {
+            font-size: 0.85rem;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 300;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .cookies-text a {
+            color: var(--primary);
+            text-decoration: underline;
+        }
+
+        .cookies-buttons {
+            display: flex;
+            gap: 0.8rem;
+        }
+
+        .cookies-btn {
+            padding: 0.6rem 1.2rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .cookies-btn-primary {
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+        }
+
+        .cookies-btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .article-container {
+                flex-direction: column;
+            }
+
+            .article-sidebar {
+                max-width: 100%;
+                position: static;
+            }
+
+            .toc {
+                display: none;
+            }
+
+            .toc-mobile {
+                display: block;
+                background: var(--white);
+                padding: 1rem;
+                border-radius: 8px;
+                margin-bottom: 2rem;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            }
+
+            .toc-mobile h3 {
+                font-size: 1.2rem;
+                margin-bottom: 1rem;
+                cursor: pointer;
+            }
+
+            .toc-mobile ul {
+                display: none;
+            }
+
+            .toc-mobile.active ul {
+                display: block;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .footer-column:first-child {
+                grid-column: span 2;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.2rem;
+            }
+
+            .hero-meta {
+                font-size: 0.85rem;
+            }
+
+            .article-section h2 {
+                font-size: 1.6rem;
+            }
+
+            .article-section h3 {
+                font-size: 1.2rem;
+            }
+
+            .article-section p {
+                font-size: 0.85rem;
+            }
+
+            .pull-quote {
+                font-size: 1.1rem;
+            }
+
+            .stat-callout h3 {
+                font-size: 1.8rem;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .mobile-menu {
+                display: flex;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-title {
+                font-size: 1.8rem;
+            }
+
+            .article-section h2 {
+                font-size: 1.4rem;
+            }
+
+            .article-section p {
+                font-size: 0.8rem;
+            }
+
+            .pull-quote {
+                font-size: 1rem;
+                padding: 0.8rem 1rem;
+            }
+
+            .btn {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="navbar">
+                <div class="logo">
+                    <img src="lelema-logo.png" alt="Lelema Consultants Logo" class="logo-img">
+                </div>
+                <button class="menu-toggle" id="menu-toggle">
+                    <span class="burger"></span>
+                </button>
+                <ul class="nav-menu">
+                    <li><a href="index.html#home" class="nav-link">Home</a></li>
+                    <li><a href="index.html#services" class="nav-link">Services</a></li>
+                    <li><a href="index.html#benefits" class="nav-link">Benefits</a></li>
+                    <li><a href="index.html#about" class="nav-link">About</a></li>
+                    <li><a href="index.html#blog" class="nav-link">Blog</a></li>
+                    <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
+    <div class="mobile-menu" id="mobile-menu">
+        <a href="index.html#home" class="nav-link">Home</a>
+        <a href="index.html#services" class="nav-link">Services</a>
+        <a href="index.html#benefits" class="nav-link">Benefits</a>
+        <a href="index.html#about" class="nav-link">About</a>
+        <a href="index.html#blog" class="nav-link">Blog</a>
+        <a href="index.html#contact" class="nav-link">Contact</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content" data-aos="fade-up">
+                <h1 class="hero-title">Process Optimization: Case Studies from Top Performers</h1>
+                <div class="hero-meta" data-aos="fade-up" data-aos-delay="200">
+                    <span>By Michael Brown</span> | <span>May 20, 2025</span> | <span>12 min read</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Article Content -->
+    <section class="article-container">
+        <div class="article-main">
+            <!-- Introduction -->
+            <div class="article-section" data-aos="fade-up">
+                <h2 id="intro">Introduction</h2>
+                <p>Process optimization is the key to unlocking efficiency, reducing costs, and enhancing customer satisfaction. By streamlining workflows and eliminating waste, top-performing organizations achieve remarkable results. At Lelema Consultants, we specialize in process optimization, delivering tailored solutions across industries.</p>
+                <p>This article showcases three case studies from retail, logistics, and healthcare, highlighting how process optimization drives success. We’ll explore methodologies and Lelema’s approach to transforming operations.</p>
+            </div>
+
+            <!-- Retail Case Study -->
+            <div class="article-section" data-aos="fade-up">
+                <h2 id="retail">Case Study: Retail Inventory Optimization</h2>
+                <p>A national retail chain faced overstocking issues, tying up capital and increasing storage costs. Lelema implemented Business Process Model and Notation (BPMN) to map their inventory processes, identifying inefficiencies in ordering and restocking.</p>
+                <p>By automating reorder triggers and integrating real-time sales data, we reduced excess inventory by 20% and cut stockouts by 15%, boosting profitability and customer satisfaction.</p>
+                <div class="pull-quote" data-aos="slide-right">
+                    “Optimized processes turned our inventory into a strategic asset.” – Retail Client
+                </div>
+            </div>
+
+            <!-- Logistics Case Study -->
+            <div class="article-section" data-aos="fade-up">
+                <h2 id="logistics">Case Study: Logistics Delivery Efficiency</h2>
+                <p>A logistics firm struggled with delayed deliveries, impacting customer trust. Using Lean Six Sigma, Lelema analyzed their delivery workflows, pinpointing bottlenecks in routing and scheduling.</p>
+                <p>We redesigned routes with process mining tools and implemented GPS-integrated scheduling, reducing delivery times by 18% and fuel costs by 12%. The firm reported a 10% increase in customer retention.</p>
+                <div class="stat-callout" data-aos="fade-up">
+                    <h3>65%</h3>
+                    <p>of optimized logistics firms improve customer satisfaction, per Industry Reports.</p>
+                </div>
+            </div>
+
+            <!-- Healthcare Case Study -->
+            <div class="article-section" data-aos="fade-up">
+                <h2 id="healthcare">Case Study: Healthcare Patient Flow</h2>
+                <p>A hospital faced long patient wait times, straining staff and lowering satisfaction. Lelema used system simulation to model patient flow, identifying bottlenecks in triage and bed allocation.</p>
+                <p>Our optimized scheduling and resource allocation plan cut wait times by 25% and increased bed utilization by 15%. Patient satisfaction scores rose by 12%.</p>
+                <figure class="article-image" data-aos="fade-in">
+                    <img src="process-blog.jpg" alt="Process Optimization Flowchart">
+                    <figcaption>A flowchart illustrating optimized patient flow in healthcare.</figcaption>
+                </figure>
+            </div>
+
+            <!-- Methodologies -->
+            <div class="article-section" data-aos="fade-up">
+                <h2 id="methodologies">Key Optimization Methodologies</h2>
+                <p>Lelema employs proven methodologies like BPMN for process mapping, Lean Six Sigma for waste reduction, and process mining for data-driven insights. These tools ensure precise, scalable solutions.</p>
+                <p>Emerging technologies, such as robotic process automation (RPA), further enhance efficiency by automating repetitive tasks, freeing staff for high-value work.</p>
+                <div class="pull-quote" data-aos="slide-right">
+                    “The right methodology transforms complexity into clarity.” – Michael Brown
+                </div>
+            </div>
+
+            <!-- Lelema’s Approach -->
+            <div class="article-section" data-aos="fade-up">
+                <h2 id="lelema-approach">Lelema’s Optimization Approach</h2>
+                <p>Lelema’s process optimization begins with a thorough assessment, followed by customized redesign and implementation. We integrate advanced tools and train teams to sustain improvements, ensuring long-term success.</p>
+                <p>Our client-centric approach delivers measurable outcomes, from cost savings to enhanced customer experiences, across diverse sectors.</p>
+            </div>
+
+            <!-- Conclusion -->
+            <div class="article-section" data-aos="fade-up">
+                <h2 id="conclusion">Conclusion</h2>
+                <p>Process optimization drives efficiency and growth, as shown by our retail, logistics, and healthcare case studies. Lelema Consultants is your partner in streamlining operations with proven methodologies and cutting-edge tools. Ready to optimize your processes? Contact us today.</p>
+                <a href="index.html#contact" class="btn btn-primary" data-aos="fade-up">Get In Touch</a>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="article-sidebar">
+            <div class="toc">
+                <h3>Table of Contents</h3>
+                <ul>
+                    <li><a href="#intro">Introduction</a></li>
+                    <li><a href="#retail">Retail Case Study</a></li>
+                    <li><a href="#logistics">Logistics Case Study</a></li>
+                    <li><a href="#healthcare">Healthcare Case Study</a></li>
+                    <li><a href="#methodologies">Methodologies</a></li>
+                    <li><a href="#lelema-approach">Lelema’s Approach</a></li>
+                    <li><a href="#conclusion">Conclusion</a></li>
+                </ul>
+            </div>
+            <div class="author-bio">
+                <h3>About the Author</h3>
+                <p>Michael Brown is a process optimization expert at Lelema Consultants, with a focus on Lean Six Sigma and BPMN, serving clients in logistics and healthcare.</p>
+            </div>
+            <div class="related-articles">
+                <h3>Related Articles</h3>
+                <ul>
+                    <li><a href="blog-post1.html">The Future of Business Intelligence in 2025</a></li>
+                    <li><a href="blog-post2.html">5 Ways Data Analysis Transforms Decision Making</a></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sticky CTA -->
+    <a href="index.html#contact" class="sticky-cta">Contact Us</a>
+
+    <!-- WhatsApp Float -->
+    <a href="https://wa.me/27630740545" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                <div class="footer-logo">
+                    <img src="lelema-logo-white.png" alt="Lelema Consultants Logo">
+                </div>
+                <p>Empowering businesses with data-driven insights and innovative solutions for sustainable growth.</p>
+                <div class="footer-social">
+                    <div class="social-icons">
+                        <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Services</h3>
+                <a href="bi-reporting.html">Business Intelligence</a>
+                <a href="data-analysis.html">Data Analysis</a>
+                <a href="system-simulation.html">System Simulation</a>
+                <a href="process-modelling.html">Process Modelling</a>
+            </div>
+            <div class="footer-column">
+                <h3>Company</h3>
+                <a href="index.html#about">About Us</a>
+                <a href="index.html#blog">Blog</a>
+                <a href="index.html#contact">Contact</a>
+            </div>
+            <div class="footer-column">
+                <h3>Legal</h3>
+                <a href="privacy-policy.html">Privacy Policy</a>
+                <a href="terms-of-service.html">Terms of Service</a>
+                <a href="cookie-policy.html">Cookie Policy</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 Lelema Consultants. All rights reserved. <a href="privacy-policy.html">Privacy Policy</a> | <a href="terms-of-service.html">Terms of Service</a></p>
+        </div>
+    </footer>
+
+    <!-- Cookies Popup -->
+    <div class="cookies-popup" id="cookies-popup" data-aos="fade-up">
+        <div class="cookies-text">
+            We use cookies to enhance your browsing experience and analyze site traffic. By continuing to use our site, you consent to our use of cookies. Learn more in our <a href="cookie-policy.html" target="_blank">Cookie Policy</a>.
+        </div>
+        <div class="cookies-buttons">
+            <button class="cookies-btn cookies-btn-primary" id="accept-cookies">Accept</button>
+            <a href="cookie-policy.html" class="cookies-btn cookies-btn-outline" target="_blank">Learn More</a>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 600,
+            once: true,
+            offset: 80
+        });
+
+        // Utility to check if element exists
+        const getElement = (id) => {
+            const element = document.getElementById(id);
+            if (!element) {
+                console.warn(`Element with ID ${id} not found`);
+                return null;
+            }
+            return element;
+        };
+
+        // Mobile Menu Toggle
+        const menuToggle = getElement('menu-toggle');
+        const mobileMenu = getElement('mobile-menu');
+        const mobileMenuOverlay = getElement('mobile-menu-overlay');
+
+        const toggleMobileMenu = () => {
+            menuToggle.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            mobileMenuOverlay.classList.toggle('active');
+        };
+
+        if (menuToggle && mobileMenu && mobileMenuOverlay) {
+            menuToggle.addEventListener('click', toggleMobileMenu);
+            mobileMenuOverlay.addEventListener('click', toggleMobileMenu);
+        }
+
+        // Cookies Pop-Up
+        const cookiesPopup = getElement('cookies-popup');
+        const acceptCookiesBtn = getElement('accept-cookies');
+
+        if (cookiesPopup && acceptCookiesBtn) {
+            if (!localStorage.getItem('cookiesAccepted')) {
+                setTimeout(() => {
+                    cookiesPopup.classList.add('active');
+                }, 1000);
+            }
+
+            const handleAcceptCookies = () => {
+                localStorage.setItem('cookiesAccepted', 'true');
+                cookiesPopup.classList.remove('active');
+            };
+
+            acceptCookiesBtn.addEventListener('click', handleAcceptCookies);
+            acceptCookiesBtn.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                handleAcceptCookies();
+            });
+        }
+
+        // Mobile TOC Toggle
+        const tocMobile = document.createElement('div');
+        tocMobile.className = 'toc-mobile';
+        tocMobile.innerHTML = `
+            <h3>Table of Contents</h3>
+            <ul>
+                <li><a href="#intro">Introduction</a></li>
+                <li><a href="#retail">Retail Case Study</a></li>
+                <li><a href="#logistics">Logistics Case Study</a></li>
+                <li><a href="#healthcare">Healthcare Case Study</a></li>
+                <li><a href="#methodologies">Methodologies</a></li>
+                <li><a href="#lelema-approach">Lelema’s Approach</a></li>
+                <li><a href="#conclusion">Conclusion</a></li>
+            </ul>
+        `;
+        document.querySelector('.article-main').prepend(tocMobile);
+
+        const tocMobileHeader = tocMobile.querySelector('h3');
+        tocMobileHeader.addEventListener('click', () => {
+            tocMobile.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Intelligence Reporting - Lelema Consultants</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;600&family=Roboto:wght@100;200;300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        :root {
+            --primary: #1e90ff;
+            --primary-dark: #187bcd;
+            --text-dark: #2d3436;
+            --text-light: #dfe6e9;
+            --bg-light: #f8f9fa;
+            --white: #ffffff;
+            --transition: all 0.3s ease-out;
+            --glow: 0 0 8px rgba(30, 144, 255, 0.3);
+            --gradient: linear-gradient(135deg, #1e90ff, #4dabf7);
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 0.8rem 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-img {
+            height: 40px;
+            width: auto;
+            object-fit: contain;
+            transition: var(--transition);
+        }
+
+        .logo-img:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 300;
+            font-family: 'Roboto', sans-serif;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--gradient);
+            transition: var(--transition);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+        }
+
+        .menu-toggle {
+            display: none;
+            cursor: pointer;
+            background: none;
+            border: none;
+            z-index: 1001;
+        }
+
+        .burger {
+            width: 24px;
+            height: 2px;
+            background: var(--text-dark);
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .burger::before,
+        .burger::after {
+            content: '';
+            position: absolute;
+            width: 24px;
+            height: 2px;
+            background: var(--text-dark);
+            transition: var(--transition);
+        }
+
+        .burger::before {
+            transform: translateY(-8px);
+        }
+
+        .burger::after {
+            transform: translateY(8px);
+        }
+
+        .menu-toggle.active .burger {
+            background: transparent;
+        }
+
+        .menu-toggle.active .burger::before {
+            transform: rotate(45deg);
+        }
+
+        .menu-toggle.active .burger::after {
+            transform: rotate(-45deg);
+        }
+
+        /* Mobile Menu Styles */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 280px;
+            height: 100vh;
+            background: var(--white);
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+            z-index: 999;
+            transition: right 0.3s ease-out;
+            padding: 80px 30px 30px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu .nav-link {
+            font-size: 1rem;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            display: block;
+        }
+
+        .mobile-menu .nav-link:hover {
+            color: var(--primary);
+        }
+
+        .mobile-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 998;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-out, visibility 0.3s ease-out;
+        }
+
+        .mobile-menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 50vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            background: url('data-analytics-bg.jpg') no-repeat center center/cover, var(--gradient);
+            background-blend-mode: overlay;
+            text-align: center;
+            padding: 4rem 0;
+            color: var(--white);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+        }
+
+        .hero-title {
+            font-size: 2.8rem;
+            font-weight: 400;
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+            letter-spacing: 1.5px;
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 300;
+            line-height: 1.8;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            margin: 0 auto 1.5rem;
+        }
+
+        .hero-button {
+            z-index: 3;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 0.7rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 400;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            min-width: 110px;
+            text-align: center;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: var(--transition);
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: var(--glow);
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        /* BI Overview Section */
+        .bi-overview {
+            padding: 3rem 0;
+            background: var(--white);
+            position: relative;
+            text-align: center;
+        }
+
+        .bi-content {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 2rem;
+            max-width: 1200px;
+        }
+
+        .bi-image {
+            flex: 1;
+            max-width: 450px;
+        }
+
+        .bi-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+
+        .bi-image img:hover {
+            transform: scale(1.05);
+            filter: brightness(1.1);
+        }
+
+        .bi-text {
+            flex: 1;
+            max-width: 600px;
+            text-align: left;
+        }
+
+        .bi-title {
+            font-size: 2.5rem;
+            font-weight: 400;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+            position: relative;
+        }
+
+        .bi-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--gradient);
+        }
+
+        .bi-description {
+            font-size: 0.95rem;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 300;
+            color: var(--text-dark);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .bi-button {
+            margin-top: 1rem;
+            z-index: 2;
+        }
+
+        /* BI Services Section */
+        .bi-services {
+            padding: 3rem 0;
+            background: var(--bg-light);
+            position: relative;
+            text-align: center;
+        }
+
+        .services-title {
+            font-size: 2.2rem;
+            font-weight: 400;
+            line-height: 1.2;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .services-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--gradient);
+        }
+
+        .services-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .service-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            position: relative;
+            padding: 1rem 0;
+            transition: var(--transition);
+        }
+
+        .service-item:hover .service-icon {
+            transform: scale(1.1);
+            box-shadow: var(--glow);
+        }
+
+        .service-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 1.5rem;
+            flex-shrink: 0;
+            transition: var(--transition);
+        }
+
+        .service-content {
+            flex: 1;
+            text-align: left;
+        }
+
+        .service-content h3 {
+            font-size: 1.4rem;
+            font-weight: 400;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+            position: relative;
+        }
+
+        .service-content h3::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 30px;
+            height: 1px;
+            background: var(--gradient);
+        }
+
+        .service-content p {
+            font-size: 0.9rem;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 300;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* Why Lelema Section */
+        .why-lelema {
+            padding: 3rem 0;
+            background: var(--white);
+            position: relative;
+            text-align: center;
+        }
+
+        .why-title {
+            font-size: 2.2rem;
+            font-weight: 400;
+            line-height: 1.2;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .why-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--gradient);
+        }
+
+        .why-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .why-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 0;
+            position: relative;
+        }
+
+        .why-item::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 0.5px;
+            background: var(--gradient);
+            opacity: 0.2;
+        }
+
+        .why-item:last-child::after {
+            display: none;
+        }
+
+        .why-icon {
+            font-size: 1.8rem;
+            color: var(--primary);
+            flex-shrink: 0;
+        }
+
+        .why-content {
+            flex: 1;
+            text-align: left;
+        }
+
+        .why-content h3 {
+            font-size: 1.2rem;
+            font-weight: 400;
+            margin-bottom: 0.4rem;
+            color: var(--text-dark);
+        }
+
+        .why-content p {
+            font-size: 0.85rem;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 300;
+            color: var(--text-dark);
+            line-height: 1.5;
+        }
+
+        /* Client Impact Section */
+        .client-impact {
+            padding: 3rem 0;
+            background: var(--bg-light);
+            position: relative;
+            text-align: center;
+        }
+
+        .impact-title {
+            font-size: 2.2rem;
+            font-weight: 400;
+            line-height: 1.2;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .impact-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--gradient);
+        }
+
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 2rem auto;
+        }
+
+        .impact-stat {
+            text-align: center;
+        }
+
+        .impact-stat i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 0.8rem;
+        }
+
+        .impact-stat h3 {
+            font-size: 2rem;
+            font-weight: 400;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .impact-stat p {
+            font-size: 0.9rem;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 300;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* Call to Action Section */
+        .cta-section {
+            padding: 3rem 0;
+            background: var(--white);
+            position: relative;
+            text-align: center;
+        }
+
+        .cta-title {
+            font-size: 2rem;
+            font-weight: 400;
+            line-height: 1.2;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+        }
+
+        .cta-description {
+            font-size: 0.95rem;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 300;
+            color: var(--text-dark);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Sticky CTA */
+        .sticky-cta {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            background: var(--gradient);
+            color: var(--white);
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            box-shadow: var(--glow);
+            z-index: 1000;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .sticky-cta:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 16px rgba(30, 144, 255, 0.8);
+        }
+
+        /* WhatsApp Quick Link */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #25D366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Decorative Shapes */
+        .hero-shape, .bi-shape, .services-shape, .why-shape, .impact-shape, .cta-shape {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(30, 144, 255, 0.2), transparent);
+            animation: float 6s ease-in-out infinite;
+            box-shadow: var(--glow);
+            z-index: 1;
+        }
+
+        .hero-shape-1, .bi-shape-1, .services-shape-1, .why-shape-1, .impact-shape-1, .cta-shape-1 {
+            width: 180px;
+            height: 180px;
+            top: 10%;
+            left: 5%;
+        }
+
+        .hero-shape-2, .bi-shape-2, .services-shape-2, .why-shape-2, .impact-shape-2, .cta-shape-2 {
+            width: 120px;
+            height: 120px;
+            bottom: 15%;
+            right: 10%;
+            animation-delay: 2s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-30px); }
+        }
+
+        /* Section Divider */
+        .section-divider {
+            width: 100%;
+            height: 1px;
+            background: var(--gradient);
+            margin: 2rem 0;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--text-dark);
+            color: var(--text-light);
+            padding: 1.5rem 0;
+            position: relative;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 1.5rem;
+            padding: 0 1rem;
+            align-items: start;
+        }
+
+        .footer-column {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .footer-logo img {
+            height: 40px;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-column h3 {
+            font-size: 1rem;
+            font-weight: 400;
+            margin-bottom: 0.5rem;
+            color: var(--white);
+        }
+
+        .footer-column p,
+        .footer-column a {
+            font-size: 0.8rem;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 300;
+            color: var(--text-light);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-column a:hover {
+            color: var(--primary);
+        }
+
+        .footer-social .social-icons {
+            display: flex;
+            gap: 0.8rem;
+            margin-top: 0.5rem;
+        }
+
+        .footer-social a {
+            color: var(--text-light);
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+
+        .footer-social a:hover {
+            color: var(--primary);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.75rem;
+            font-family: 'Roboto', sans-serif;
+            color: var(--text-light);
+        }
+
+        .footer-bottom a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-bottom a:hover {
+            color: var(--primary-dark);
+        }
+
+        /* Cookies Pop-Up */
+        .cookies-popup {
+            position: fixed;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 1001;
+            max-width: 90%;
+            width: 320px;
+            display: none;
+            flex-direction: column;
+            gap: 0.8rem;
+            text-align: left;
+        }
+
+        .cookies-popup.active {
+            display: flex;
+        }
+
+        .cookies-text {
+            font-size: 0.85rem;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 300;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .cookies-text a {
+            color: var(--primary);
+            text-decoration: underline;
+            transition: var(--transition);
+        }
+
+        .cookies-text a:hover {
+            color: var(--primary-dark);
+        }
+
+        .cookies-buttons {
+            display: flex;
+            gap: 0.8rem;
+        }
+
+        .cookies-btn {
+            padding: 0.6rem 1.2rem;
+            border-radius: 50px;
+            font-family: 'Roboto', sans-serif;
+            font-size: 0.85rem;
+            transition: var(--transition);
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .cookies-btn-primary {
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+        }
+
+        .cookies-btn-primary:hover {
+            background: var(--primary-dark);
+            box-shadow: var(--glow);
+        }
+
+        .cookies-btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .cookies-btn-outline:hover {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .footer-container {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .footer-column:first-child {
+                grid-column: span 2;
+            }
+
+            .bi-content {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .bi-image {
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title, .bi-title, .services-title, .why-title, .impact-title, .cta-title {
+                font-size: 1.8rem;
+            }
+
+            .hero-description, .bi-description, .service-content p, .why-content p, .impact-stat p, .cta-description {
+                font-size: 0.85rem;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .mobile-menu {
+                display: flex;
+            }
+
+            .service-content h3 {
+                font-size: 1.2rem;
+            }
+
+            .why-content h3 {
+                font-size: 1.1rem;
+            }
+
+            .impact-stat h3 {
+                font-size: 1.8rem;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer-social .social-icons {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-title, .bi-title, .services-title, .why-title, .impact-title, .cta-title {
+                font-size: 1.6rem;
+            }
+
+            .hero-description, .bi-description, .service-content p, .why-content p, .impact-stat p, .cta-description {
+                font-size: 0.8rem;
+            }
+
+            .hero-shape-1, .bi-shape-1, .services-shape-1, .why-shape-1, .impact-shape-1, .cta-shape-1 {
+                width: 140px;
+                height: 140px;
+            }
+
+            .hero-shape-2, .bi-shape-2, .services-shape-2, .why-shape-2, .impact-shape-2, .cta-shape-2 {
+                width: 90px;
+                height: 90px;
+            }
+
+            .cookies-btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.8rem;
+            }
+
+            .btn {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.85rem;
+            }
+
+            .service-item, .why-item {
+                padding: 0.8rem 0;
+            }
+
+            .service-icon {
+                width: 32px;
+                height: 32px;
+                font-size: 1.2rem;
+            }
+
+            .why-icon {
+                font-size: 1.5rem;
+            }
+
+            .service-content h3 {
+                font-size: 1.1rem;
+            }
+
+            .why-content h3 {
+                font-size: 1rem;
+            }
+
+            .service-content p, .why-content p {
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="navbar">
+                <div class="logo">
+                    <img src="lelema-logo.png" alt="Lelema Consultants Logo" class="logo-img" id="logo-img">
+                </div>
+                <button class="menu-toggle" id="menu-toggle">
+                    <span class="burger"></span>
+                </button>
+                <ul class="nav-menu" id="nav-menu">
+                    <li><a href="index.html#home" class="nav-link">Home</a></li>
+                    <li><a href="index.html#services" class="nav-link">Services</a></li>
+                    <li><a href="index.html#benefits" class="nav-link">Benefits</a></li>
+                    <li><a href="about-us.html#about" class="nav-link">About</a></li>
+                    <li><a href="index.html#blog" class="nav-link">Blog</a></li>
+                    <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
+    <div class="mobile-menu" id="mobile-menu">
+        <a href="index.html#home" class="nav-link">Home</a>
+        <a href="index.html#services" class="nav-link">Services</a>
+        <a href="index.html#benefits" class="nav-link">Benefits</a>
+        <a href="about-us.html#about" class="nav-link">About</a>
+        <a href="index.html#blog" class="nav-link">Blog</a>
+        <a href="index.html#contact" class="nav-link">Contact</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content" data-aos="fade-up">
+                <h1 class="hero-title">Business Intelligence Reporting</h1>
+                <p class="hero-description" data-aos="fade-up" data-aos-delay="200">Transform raw data into actionable insights with our advanced BI reporting solutions.</p>
+                <div class="hero-button" data-aos="fade-up" data-aos-delay="400">
+                    <a href="index.html#contact" class="btn btn-primary">Get Started</a>
+                </div>
+            </div>
+        </div>
+        <div class="hero-shape hero-shape-1"></div>
+        <div class="hero-shape hero-shape-2"></div>
+    </section>
+
+    <!-- Sticky CTA -->
+    <a href="index.html#contact" class="sticky-cta">Get In Touch</a>
+
+    <!-- WhatsApp Float Button -->
+    <a href="https://wa.me/27630740545" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- BI Overview Section -->
+    <section class="bi-overview" id="bi-reporting">
+        <div class="container">
+            <div class="bi-content" data-aos="fade-up">
+                <div class="bi-image" data-aos="fade-right">
+                    <img src="bi img.jpg" alt="BI Reporting Dashboard">
+                </div>
+                <div class="bi-text">
+                    <h2 class="bi-title" data-aos="fade-up">What is BI Reporting?</h2>
+                    <div class="bi-description" data-aos="fade-up" data-aos-delay="200">
+                        <p>Business Intelligence (BI) Reporting turns complex data into clear, actionable insights through interactive dashboards, visualizations, and detailed reports. At Lelema Consultants, we design BI solutions that empower your team to make informed decisions, optimize performance, and stay ahead of the competition.</p>
+                        <p>Our BI reporting services integrate seamlessly with your existing systems, providing real-time data access and customized analytics tailored to your business needs. From financial forecasting to operational efficiency, we help you unlock the full potential of your data.</p>
+                    </div>
+                    <div class="bi-button" data-aos="fade-up" data-aos-delay="400">
+                        <a href="index.html#contact" class="btn btn-primary">Contact Us</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bi-shape bi-shape-1"></div>
+        <div class="bi-shape bi-shape-2"></div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- BI Services Section -->
+    <section class="bi-services">
+        <div class="container">
+            <h2 class="services-title" data-aos="fade-up">Our BI Reporting Services</h2>
+            <div class="services-container" data-aos="fade-up" data-aos-delay="200">
+                <div class="service-item" data-aos="fade-up" data-aos-delay="300">
+                    <div class="service-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3>Custom Dashboards</h3>
+                        <p>Interactive, user-friendly dashboards tailored to your KPIs, providing at-a-glance insights for faster decision-making.</p>
+                    </div>
+                </div>
+                <div class="service-item" data-aos="fade-up" data-aos-delay="350">
+                    <div class="service-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3>Real-Time Analytics</h3>
+                        <p>Access up-to-the-minute data to monitor performance, identify trends, and respond to opportunities instantly.</p>
+                    </div>
+                </div>
+                <div class="service-item" data-aos="fade-up" data-aos-delay="400">
+                    <div class="service-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3>Predictive Reporting</h3>
+                        <p>Leverage AI-driven analytics to forecast trends, mitigate risks, and plan strategically for the future.</p>
+                    </div>
+                </div>
+                <div class="service-item" data-aos="fade-up" data-aos-delay="450">
+                    <div class="service-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3>Secure Data Integration</h3>
+                        <p>Seamlessly integrate data from multiple sources with robust security protocols to ensure confidentiality.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="services-shape services-shape-1"></div>
+        <div class="services-shape services-shape-2"></div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- Why Lelema Section -->
+    <section class="why-lelema">
+        <div class="container">
+            <h2 class="why-title" data-aos="fade-up">Why Choose Lelema?</h2>
+            <div class="why-container" data-aos="fade-up" data-aos-delay="200">
+                <div class="why-item" data-aos="slide-right" data-aos-delay="300">
+                    <i class="fas fa-user-graduate why-icon"></i>
+                    <div class="why-content">
+                        <h3>Expert Team</h3>
+                        <p>Our data scientists and BI specialists bring advanced degrees and industry experience to deliver top-tier solutions.</p>
+                    </div>
+                </div>
+                <div class="why-item" data-aos="slide-right" data-aos-delay="350">
+                    <i class="fas fa-cogs why-icon"></i>
+                    <div class="why-content">
+                        <h3>Tailored Solutions</h3>
+                        <p>We design BI reports and dashboards customized to your unique business needs and goals.</p>
+                    </div>
+                </div>
+                <div class="why-item" data-aos="slide-right" data-aos-delay="400">
+                    <i class="fas fa-shield-alt why-icon"></i>
+                    <div class="why-content">
+                        <h3>Secure Platforms</h3>
+                        <p>Industry-leading security ensures your data is protected, compliant, and accessible only to authorized users.</p>
+                    </div>
+                </div>
+                <div class="why-item" data-aos="slide-right" data-aos-delay="450">
+                    <i class="fas fa-rocket why-icon"></i>
+                    <div class="why-content">
+                        <h3>Rapid Deployment</h3>
+                        <p>Our streamlined process delivers BI solutions quickly, minimizing downtime and maximizing impact.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="why-shape why-shape-1"></div>
+        <div class="why-shape why-shape-2"></div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- Client Impact Section -->
+    <section class="client-impact">
+        <div class="container">
+            <h2 class="impact-title" data-aos="fade-up">Our Impact</h2>
+            <div class="impact-grid" data-aos="fade-up" data-aos-delay="200">
+                <div class="impact-stat" data-aos="fade-up" data-aos-delay="300">
+                    <i class="fas fa-clock"></i>
+                    <h3>40%</h3>
+                    <p>Faster Decision-Making</p>
+                </div>
+                <div class="impact-stat" data-aos="fade-up" data-aos-delay="400">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <h3>35%</h3>
+                    <p>Cost Reduction</p>
+                </div>
+                <div class="impact-stat" data-aos="fade-up" data-aos-delay="500">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>25%</h3>
+                    <p>Revenue Growth</p>
+                </div>
+                <div class="impact-stat" data-aos="fade-up" data-aos-delay="600">
+                    <i class="fas fa-users"></i>
+                    <h3>30+</h3>
+                    <p>BI Projects Delivered</p>
+                </div>
+            </div>
+        </div>
+        <div class="impact-shape impact-shape-1"></div>
+        <div class="impact-shape impact-shape-2"></div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- Call to Action Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2 class="cta-title" data-aos="fade-up">Ready to Elevate Your Business?</h2>
+            <p class="cta-description" data-aos="fade-up" data-aos-delay="200">Partner with Lelema Consultants to harness the power of BI reporting. Contact us today to discuss your needs.</p>
+            <a href="index.html#contact" class="btn btn-primary" data-aos="fade-up" data-aos-delay="400">Get In Touch</a>
+        </div>
+        <div class="cta-shape cta-shape-1"></div>
+        <div class="cta-shape cta-shape-2"></div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                <div class="footer-logo">
+                    <img src="lelema-logo-white.png" alt="Lelema Consultants Logo">
+                </div>
+                <p>Empowering businesses with data-driven insights and innovative solutions for sustainable growth.</p>
+                <div class="footer-social">
+                    <div class="social-icons">
+                        <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Services</h3>
+                <a href="bi-reporting.html">Business Intelligence</a>
+                <a href="data-analysis.html">Data Analysis</a>
+                <a href="system-simulation.html">System Simulation</a>
+                <a href="process-modelling.html">Process Modelling</a>
+            </div>
+            <div class="footer-column">
+                <h3>Company</h3>
+                <a href="about-us.html#about">About Us</a>
+                <a href="index.html#blog">Blog</a>
+                <a href="index.html#contact">Contact</a>
+            </div>
+            <div class="footer-column">
+                <h3>Legal</h3>
+                <a href="privacy-policy.html">Privacy Policy</a>
+                <a href="terms-of-service.html">Terms of Service</a>
+                <a href="cookie-policy.html">Cookie Policy</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 Lelema Consultants. All rights reserved. <a href="privacy-policy.html">Privacy Policy</a> | <a href="terms-of-service.html">Terms of Service</a></p>
+        </div>
+    </footer>
+
+    <!-- Cookies Pop-Up -->
+    <div class="cookies-popup" id="cookies-popup" data-aos="fade-up">
+        <div class="cookies-text">
+            We use cookies to enhance your browsing experience and analyze site traffic. By continuing to use our site, you consent to our use of cookies. Learn more in our <a href="cookie-policy.html" target="_blank">Cookie Policy</a>.
+        </div>
+        <div class="cookies-buttons">
+            <button class="cookies-btn cookies-btn-primary" id="accept-cookies">Accept</button>
+            <a href="cookie-policy.html" class="cookies-btn cookies-btn-outline" target="_blank">Learn More</a>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 600,
+            once: true,
+            offset: 80
+        });
+
+        // Utility to check if element exists
+        const getElement = (id) => {
+            const element = document.getElementById(id);
+            if (!element) {
+                console.warn(`Element with ID ${id} not found`);
+                return null;
+            }
+            return element;
+        };
+
+        // Mobile Menu Toggle
+        const menuToggle = getElement('menu-toggle');
+        const mobileMenu = getElement('mobile-menu');
+        const mobileMenuOverlay = getElement('mobile-menu-overlay');
+
+        const toggleMobileMenu = (e) => {
+            e.preventDefault();
+            menuToggle.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            mobileMenuOverlay.classList.toggle('active');
+        };
+
+        if (menuToggle && mobileMenu && mobileMenuOverlay) {
+            // Add click and touchstart events for broader compatibility
+            menuToggle.addEventListener('click', toggleMobileMenu);
+            menuToggle.addEventListener('touchstart', toggleMobileMenu);
+            mobileMenuOverlay.addEventListener('click', toggleMobileMenu);
+            mobileMenuOverlay.addEventListener('touchstart', toggleMobileMenu);
+
+            // Close menu when clicking a nav link
+            mobileMenu.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    menuToggle.classList.remove('active');
+                    mobileMenu.classList.remove('active');
+                    mobileMenuOverlay.classList.remove('active');
+                });
+            });
+        }
+
+        // Cookies Pop-Up
+        const cookiesPopup = getElement('cookies-popup');
+        const acceptCookiesBtn = getElement('accept-cookies');
+
+        if (cookiesPopup && acceptCookiesBtn) {
+            if (!localStorage.getItem('cookiesAccepted')) {
+                setTimeout(() => {
+                    cookiesPopup.classList.add('active');
+                }, 1000);
+            }
+
+            const handleAcceptCookies = (e) => {
+                e.preventDefault();
+                localStorage.setItem('cookiesAccepted', 'true');
+                cookiesPopup.classList.remove('active');
+            };
+
+            acceptCookiesBtn.addEventListener('click', handleAcceptCookies);
+            acceptCookiesBtn.addEventListener('touchstart', handleAcceptCookies);
+        }
+
+        // Navigation Handler for Links
+        const navigateToPage = (href, isAnchor) => {
+            if (isAnchor) {
+                const targetId = href.split('#')[1];
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({ behavior: 'smooth' });
+                    return true;
+                }
+                return false;
+            } else {
+                window.location.href = href;
+                return true;
+            }
+        };
+
+        // Handle Navigation for Nav Links
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const href = link.getAttribute('href');
+                navigateToPage(href, href.includes('#'));
+            });
+        });
+    </script>
+</body>
+</html>

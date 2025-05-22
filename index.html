@@ -1,0 +1,2452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lelema Consultants - Data & Business Intelligence</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;600&family=Roboto:wght@100;200;300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        :root {
+            --primary: #1e90ff; /* New vibrant blue */
+            --primary-dark: #187bcd; /* Darker shade for hover */
+            --text-dark: #2d3436;
+            --text-light: #dfe6e9;
+            --bg-light: #f8f9fa;
+            --white: #ffffff;
+            --transition: all 0.3s ease-out;
+            --glow: 0 0 12px rgba(30, 144, 255, 0.6); /* Updated glow */
+            --gradient: linear-gradient(135deg, #1e90ff, #4dabf7); /* Updated gradient */
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 0.8rem 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-img {
+            height: 40px;
+            width: auto;
+            object-fit: contain;
+            transition: var(--transition);
+        }
+
+        .logo-img:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 300;
+            font-family: 'Roboto', sans-serif;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--gradient);
+            transition: var(--transition);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+        }
+
+        .menu-toggle {
+            display: none;
+            cursor: pointer;
+            background: none;
+            border: none;
+            z-index: 1001;
+        }
+
+        .burger {
+            width: 24px;
+            height: 2px;
+            background: var(--text-dark);
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .burger::before,
+        .burger::after {
+            content: '';
+            position: absolute;
+            width: 24px;
+            height: 2px;
+            background: var(--text-dark);
+            transition: var(--transition);
+        }
+
+        .burger::before {
+            transform: translateY(-8px);
+        }
+
+        .burger::after {
+            transform: translateY(8px);
+        }
+
+        .menu-toggle.active .burger {
+            background: transparent;
+        }
+
+        .menu-toggle.active .burger::before {
+            transform: rotate(45deg);
+        }
+
+        .menu-toggle.active .burger::after {
+            transform: rotate(-45deg);
+        }
+
+        /* Language Switcher */
+        .language-switcher {
+            display: flex;
+            align-items: center;
+            margin-left: 1rem;
+            position: relative;
+        }
+
+        .language-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--primary);
+            border: none;
+            color: var(--white);
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            transition: var(--transition);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .language-btn:hover {
+            background: var(--primary-dark);
+            transform: scale(1.05);
+        }
+
+        .language-btn i {
+            margin-right: 0.3rem;
+            font-size: 0.8rem;
+        }
+
+        .language-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: var(--white);
+            border-radius: 4px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            z-index: 1000;
+            display: none;
+            min-width: 120px;
+        }
+
+        .language-dropdown.active {
+            display: block;
+        }
+
+        .language-option {
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+        }
+
+        .language-option:hover {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        .language-option img {
+            width: 20px;
+            margin-right: 0.5rem;
+        }
+
+        /* Mobile Menu Styles */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 280px;
+            height: 100vh;
+            background: var(--white);
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+            z-index: 999;
+            transition: var(--transition);
+            padding: 80px 30px 30px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu .nav-link {
+            font-size: 1rem;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            display: block;
+        }
+
+        .mobile-menu .nav-link:hover {
+            color: var(--primary);
+        }
+
+        .mobile-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 998;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .mobile-menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mobile-language-switcher {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .mobile-language-switcher .language-option {
+            padding: 0.8rem 0;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            background: url('data-analytics-bg.jpg') no-repeat center center/cover, var(--gradient);
+            background-blend-mode: overlay;
+            text-align: center;
+            padding: 3rem 0;
+            color: var(--white);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+        }
+
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 200; /* Reverted to thinner original */
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+            letter-spacing: 1.5px;
+        }
+
+        .typing-text {
+            display: inline-block;
+            font-size: 3rem;
+            font-weight: 200; /* Reverted to thinner original */
+            font-family: 'Roboto', sans-serif;
+            white-space: nowrap;
+            overflow: hidden;
+            border-right: 3px solid var(--white);
+            min-width: 300px;
+            color: var(--white);
+            letter-spacing: 1.5px;
+        }
+
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        @keyframes blink {
+            50% { border-color: transparent; }
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 300;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            z-index: 3;
+        }
+
+        .btn {
+            padding: 0.7rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 400;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            min-width: 110px;
+            text-align: center;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: var(--transition);
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: var(--glow);
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--white);
+            color: var(--white);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: var(--white);
+            border-color: var(--primary);
+        }
+
+        .service-buttons .btn-outline {
+            color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        /* Scroll-Down Button */
+        .scroll-down {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 3;
+            cursor: pointer;
+        }
+
+        .scroll-down i {
+            font-size: 2rem;
+            color: var(--white);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        /* Floating CTA */
+        .floating-cta {
+            position: fixed;
+            bottom: 60px;
+            right: 20px;
+            background: var(--gradient);
+            color: var(--white);
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            box-shadow: var(--glow);
+            z-index: 1000;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .floating-cta:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 16px rgba(30, 144, 255, 0.8);
+        }
+
+        /* WhatsApp Quick Link */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #25D366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Decorative Shapes */
+        .hero-shape, .about-shape, .services-shape, .benefits-shape, .contact-shape, .video-shape {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(30, 144, 255, 0.2), transparent);
+            animation: float 6s ease-in-out infinite;
+            box-shadow: var(--glow);
+            z-index: 1;
+        }
+
+        .hero-shape-1, .about-shape-1, .services-shape-1, .benefits-shape-1, .contact-shape-1, .video-shape-1 {
+            width: 180px;
+            height: 180px;
+            top: 10%;
+            left: 5%;
+        }
+
+        .hero-shape-2, .about-shape-2, .services-shape-2, .benefits-shape-2, .contact-shape-2, .video-shape-2 {
+            width: 120px;
+            height: 120px;
+            bottom: 15%;
+            right: 10%;
+            animation-delay: 2s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-30px); }
+        }
+
+        /* Section Divider */
+        .section-divider {
+            width: 100%;
+            height: 1px;
+            background: var(--gradient);
+            margin: 2rem 0;
+        }
+
+        /* About Us Section */
+        .about-us {
+            padding: 3rem 0;
+            background: var(--white);
+            position: relative;
+            text-align: center;
+        }
+
+        .about-content {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 2rem;
+            max-width: 1200px;
+        }
+
+        .about-image {
+            flex: 1;
+            max-width: 450px;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            transition: var(--transition);
+        }
+
+        .about-image img:hover {
+            transform: scale(1.05);
+            filter: brightness(1.1);
+        }
+
+        .about-text {
+            flex: 1;
+            max-width: 600px;
+            text-align: left;
+        }
+
+        .about-title {
+            font-size: 2.5rem;
+            font-weight: 400;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+            position: relative;
+        }
+
+        .about-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--gradient);
+        }
+
+        .about-description {
+            font-size: 0.9rem;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 300;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .read-more-btn {
+            background: none;
+            border: none;
+            color: var(--primary);
+            font-family: 'Roboto', sans-serif;
+            font-weight: 400;
+            font-size: 0.9rem;
+            cursor: pointer;
+            text-decoration: underline;
+            transition: var(--transition);
+        }
+
+        .read-more-btn:hover {
+            color: var(--primary-dark);
+        }
+
+        .about-button {
+            margin-top: 1rem;
+            z-index: 2;
+        }
+
+        /* Services Section */
+        .services {
+            padding: 2.5rem 0;
+            background: var(--bg-light);
+            position: relative;
+            text-align: center;
+        }
+
+        .services-intro {
+            margin-bottom: 1.5rem;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .services-title {
+            font-size: 2.2rem;
+            font-weight: 400;
+            line-height: 1.2;
+            color: var(--text-dark);
+            margin-bottom: 0.8rem;
+        }
+
+        .services-description {
+            font-size: 0.9rem;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 300;
+            color: var(--text-dark);
+            line-height: 1.8;
+        }
+
+        .services-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .service-item {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            text-align: left;
+            padding: 0.8rem 0;
+            transition: var(--transition);
+        }
+
+        .service-item:nth-child(odd) {
+            flex-direction: row;
+        }
+
+        .service-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .service-image {
+            flex: 0 0 300px;
+        }
+
+        .service-image img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+
+        .service-item:hover .service-image img {
+            transform: scale(1.05);
+            box-shadow: var(--glow);
+        }
+
+        .service-content {
+            flex: 1;
+        }
+
+        .service-icon {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 0.8rem;
+        }
+
+        .service-item h3 {
+            font-size: 1.4rem;
+            font-weight: 400;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        .service-item p {
+            font-size: 0.85rem;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 300;
+            color: var(--text-dark);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .service-buttons {
+            display: flex;
+            flex-direction: row;
+            gap: 0.8rem;
+            margin-top: 1rem;
+            align-items: center;
+        }
+
+        .service-buttons .btn {
+            padding: 0.7rem 1.5rem;
+            font-size: 0.9rem;
+            min-width: 100px;
+        }
+
+        /* Key Benefits Section */
+        .benefits {
+            padding: 2rem 0;
+            background: var(--white);
+            position: relative;
+            text-align: center;
+        }
+
+        .benefits-title {
+            font-size: 2rem;
+            font-weight: 400;
+            line-height: 1.2;
+            color: var(--text-dark);
+            margin-bottom: 0.8rem;
+            position: relative;
+        }
+
+        .benefits-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--gradient);
+        }
+
+        .benefits-description {
+            font-size: 0.9rem;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 300;
+            color: var(--text-dark);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .benefits-grid {
+            display: flex;
+            gap: 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            overflow-x: auto;
+            padding-bottom: 1rem;
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary) var(--bg-light);
+        }
+
+        .benefits-grid::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .benefits-grid::-webkit-scrollbar-track {
+            background: var(--bg-light);
+        }
+
+        .benefits-grid::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 4px;
+        }
+
+        .benefit-card {
+            flex: 0 0 220px;
+            background: var(--white);
+            border-radius: 10px;
+            padding: 1.5rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-5px) rotateX(5deg) rotateY(5deg);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .benefit-icon {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 0.8rem;
+        }
+
+        .benefit-card h3 {
+            font-size: 1.2rem;
+            font-weight: 400;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        .benefit-card p {
+            font-size: 0.8rem;
+            line-height: 1.5;
+            color: var(--text-dark);
+        }
+
+        .benefit-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--gradient);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .benefit-card:hover::before {
+            opacity: 1;
+        }
+
+        /* Video Section */
+        .video-section {
+            padding: 3rem 0;
+            background: var(--bg-light);
+            position: relative;
+            text-align: center;
+        }
+
+        .video-title {
+            font-size: 2.2rem;
+            font-weight: 400;
+            line-height: 1.2;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .video-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--gradient);
+        }
+
+        .video-description {
+            font-size: 0.9rem;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 300;
+            color: var(--text-dark);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .video-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .video-player {
+            width: 100%;
+            aspect-ratio: 16/9;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .video-player video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .video-info-panel {
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--white);
+            border-top: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .video-info {
+            text-align: left;
+        }
+
+        .video-info h3 {
+            font-size: 1.2rem;
+            font-weight: 400;
+            margin-bottom: 0.3rem;
+            color: var(--text-dark);
+        }
+
+        .video-info p {
+            font-size: 0.85rem;
+            color: var(--text-dark);
+            opacity: 0.8;
+        }
+
+        .video-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .video-action-btn {
+            background: none;
+            border: none;
+            color: var(--text-dark);
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .video-action-btn:hover {
+            color: var(--primary);
+        }
+
+        /* Why Choose Us Section */
+        .why-choose-us {
+            padding: 3rem 0;
+            background: var(--white);
+            position: relative;
+            text-align: center;
+        }
+
+        .why-choose-us-content {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .why-choose-us-title {
+            font-size: 2.2rem;
+            font-weight: 400;
+            line-height: 1.2;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .why-choose-us-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--gradient);
+        }
+
+        .why-choose-us-description {
+            font-size: 0.9rem;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 300;
+            color: var(--text-dark);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .why-choose-us-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            text-align: left;
+        }
+
+        .why-choose-us-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .why-choose-us-item i {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-top: 0.3rem;
+        }
+
+        .why-choose-us-item div {
+            flex: 1;
+        }
+
+        .why-choose-us-item h3 {
+            font-size: 1.2rem;
+            font-weight: 400;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        .why-choose-us-item p {
+            font-size: 0.85rem;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 300;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* Contact Us Section */
+        .contact-us {
+            padding: 3rem 0;
+            background: var(--bg-light);
+            position: relative;
+            text-align: center;
+        }
+
+        .contact-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: row;
+            gap: 2rem;
+            align-items: flex-start;
+        }
+
+        .contact-title {
+            font-size: 2.2rem;
+            font-weight: 400;
+            line-height: 1.2;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .contact-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--gradient);
+        }
+
+        .contact-description {
+            font-size: 0.9rem;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 300;
+            color: var(--text-dark);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-form {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            padding: 0.9rem;
+            border: none;
+            border-bottom: 2px solid var(--text-light);
+            background: transparent;
+            font-family: 'Roboto', sans-serif;
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            border-bottom-color: var(--primary);
+            outline: none;
+        }
+
+        .contact-form textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .contact-info {
+            flex: 1;
+            text-align: left;
+        }
+
+        .contact-info h3 {
+            font-size: 1.4rem;
+            font-weight: 400;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .contact-info p {
+            font-size: 0.95rem;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 300;
+            color: var(--text-dark);
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .contact-info i {
+            color: var(--primary);
+            margin-right: 0.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--text-dark);
+            color: var(--text-light);
+            padding: 1.5rem 0;
+            position: relative;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 1.5rem;
+            padding: 0 1rem;
+            align-items: start;
+        }
+
+        .footer-column {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .footer-logo img {
+            height: 40px;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-column h3 {
+            font-size: 1rem;
+            font-weight: 400;
+            margin-bottom: 0.5rem;
+            color: var(--white);
+        }
+
+        .footer-column p,
+        .footer-column a {
+            font-size: 0.8rem;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 300;
+            color: var(--text-light);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-column a:hover {
+            color: var(--primary);
+        }
+
+        .footer-social .social-icons {
+            display: flex;
+            gap: 0.8rem;
+            margin-top: 0.5rem;
+        }
+
+        .footer-social a {
+            color: var(--text-light);
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+
+        .footer-social a:hover {
+            color: var(--primary);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.75rem;
+            font-family: 'Roboto', sans-serif;
+            color: var(--text-light);
+        }
+
+        .footer-bottom a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-bottom a:hover {
+            color: var(--primary-dark);
+        }
+
+        /* Cookies Pop-Up */
+        .cookies-popup {
+            position: fixed;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 1001;
+            max-width: 90%;
+            width: 320px;
+            display: none;
+            flex-direction: column;
+            gap: 0.8rem;
+            text-align: left;
+        }
+
+        .cookies-popup.active {
+            display: flex;
+        }
+
+        .cookies-text {
+            font-size: 0.85rem;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 300;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .cookies-text a {
+            color: var(--primary);
+            text-decoration: underline;
+            transition: var(--transition);
+        }
+
+        .cookies-text a:hover {
+            color: var(--primary-dark);
+        }
+
+        .cookies-buttons {
+            display: flex;
+            gap: 0.8rem;
+        }
+
+        .cookies-btn {
+            padding: 0.6rem 1.2rem;
+            border-radius: 50px;
+            font-family: 'Roboto', sans-serif;
+            font-size: 0.85rem;
+            transition: var(--transition);
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .cookies-btn-primary {
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+        }
+
+        .cookies-btn-primary:hover {
+            background: var(--primary-dark);
+            box-shadow: var(--glow);
+        }
+
+        .cookies-btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .cookies-btn-outline:hover {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .footer-container {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .footer-column:first-child {
+                grid-column: span 2;
+            }
+
+            .service-image {
+                flex: 0 0 250px;
+            }
+
+            .service-image img {
+                height: 160px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title, .about-title, .services-title, .why-choose-us-title, .contact-title, .benefits-title, .video-title {
+                font-size: 1.8rem;
+            }
+
+            .hero-buttons, .about-button, .service-buttons, .cookies-buttons {
+                flex-direction: row;
+                gap: 0.8rem;
+                align-items: center;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .mobile-menu {
+                display: flex;
+            }
+
+            .about-content {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .about-image {
+                max-width: 100%;
+            }
+
+            .floating-cta {
+                padding: 0.8rem 1.5rem;
+                font-size: 0.9rem;
+                bottom: 70px;
+            }
+
+            .contact-content {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .contact-form, .contact-info {
+                width: 100%;
+            }
+
+            .service-item, .service-item:nth-child(odd), .service-item:nth-child(even) {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .service-image {
+                flex: none;
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .service-image img {
+                height: auto;
+                max-height: 180px;
+            }
+
+            .service-buttons {
+                justify-content: center;
+            }
+
+            .cookies-popup {
+                width: 280px;
+                padding: 0.8rem;
+            }
+
+            .scroll-down i {
+                font-size: 1.5rem;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer-social .social-icons {
+                justify-content: center;
+            }
+
+            .benefits-grid {
+                flex-wrap: nowrap;
+                padding: 0 1rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-title, .about-title, .services-title, .why-choose-us-title, .contact-title, .benefits-title, .video-title {
+                font-size: 1.6rem;
+            }
+
+            .hero-description, .about-description, .service-item p, .why-choose-us-description, .contact-description, .cookies-text, .benefits-description, .video-description {
+                font-size: 0.8rem;
+            }
+
+            .hero-shape-1, .about-shape-1, .services-shape-1, .benefits-shape-1, .contact-shape-1, .video-shape-1 {
+                width: 140px;
+                height: 140px;
+            }
+
+            .hero-shape-2, .about-shape-2, .services-shape-2, .benefits-shape-2, .contact-shape-2, .video-shape-2 {
+                width: 90px;
+                height: 90px;
+            }
+
+            .typing-text {
+                font-size: 1.8rem;
+                min-width: 150px;
+            }
+
+            .cookies-btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.8rem;
+            }
+
+            .service-buttons {
+                flex-direction: row;
+                justify-content: center;
+            }
+
+            .service-buttons .btn {
+                padding: 0.6rem 1.2rem;
+                min-width: 90px;
+                font-size: 0.85rem;
+            }
+
+            .service-item h3 {
+                font-size: 1.2rem;
+            }
+
+            .service-image img {
+                height: 150px;
+            }
+
+            .why-choose-us-item h3 {
+                font-size: 1.1rem;
+            }
+
+            .why-choose-us-item i {
+                font-size: 1.2rem;
+            }
+
+            .hero {
+                padding: 2.5rem 0;
+            }
+
+            .benefit-card {
+                flex: 0 0 180px;
+                padding: 1rem;
+            }
+
+            .benefit-card h3 {
+                font-size: 1rem;
+            }
+
+            .benefit-card p {
+                font-size: 0.75rem;
+            }
+
+            .benefit-icon {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="navbar">
+                <div class="logo">
+                    <img src="lelema-lgo.png" alt="Lelema Consultants Logo" class="logo-img" id="logo-img">
+                </div>
+                <ul class="nav-menu" id="nav-menu">
+                    <li><a href="#home" class="nav-link">Home</a></li>
+                    <li><a href="#services" class="nav-link">Services</a></li>
+                    <li><a href="#benefits" class="nav-link">Benefits</a></li>
+                    <li><a href="#about" class="nav-link">About</a></li>
+                    <li><a href="#video" class="nav-link">Video</a></li>
+                    <li><a href="#contact" class="nav-link">Contact</a></li>
+                </ul>
+                <div class="language-switcher">
+                    <button class="language-btn" id="language-btn">
+                        <i class="fas fa-globe"></i> EN
+                    </button>
+                    <div class="language-dropdown" id="language-dropdown">
+                        <div class="language-option" data-lang="en">
+                            <img src="https://flagcdn.com/w20/us.png" alt="English"> English
+                        </div>
+                        <div class="language-option" data-lang="ar">
+                            <img src="https://flagcdn.com/w20/sa.png" alt="Arabic"> العربية
+                        </div>
+                    </div>
+                </div>
+                <button class="menu-toggle" id="menu-toggle">
+                    <span class="burger"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
+    <div class="mobile-menu" id="mobile-menu">
+        <a href="#home" class="nav-link">Home</a>
+        <a href="#services" class="nav-link">Services</a>
+        <a href="#benefits" class="nav-link">Benefits</a>
+        <a href="#about" class="nav-link">About</a>
+        <a href="#video" class="nav-link">Video</a>
+        <a href="#contact" class="nav-link">Contact</a>
+        <div class="mobile-language-switcher">
+            <div class="language-option" data-lang="en">
+                <img src="https://flagcdn.com/w20/us.png" alt="English"> English
+            </div>
+            <div class="language-option" data-lang="ar">
+                <img src="https://flagcdn.com/w20/sa.png" alt="Arabic"> العربية
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content" data-aos="fade-up">
+                <h1 class="hero-title">Transform Your Business with <span class="typing-text"></span></h1>
+                <p class="hero-description" data-aos="fade-up" data-aos-delay="200">Unlock the power of data with our expert consulting services. From business intelligence to process optimization, we help you make smarter decisions and drive growth.</p>
+                <div class="hero-buttons" data-aos="fade-up" data-aos-delay="400">
+                    <a href="#services" class="btn btn-primary">Our Services</a>
+                    <a href="#contact" class="btn btn-outline">Get Started</a>
+                </div>
+            </div>
+        </div>
+        <div class="hero-shape hero-shape-1"></div>
+        <div class="hero-shape hero-shape-2"></div>
+        <div class="scroll-down" data-aos="fade-up" data-aos-delay="600">
+            <a href="#services"><i class="fas fa-chevron-down"></i></a>
+        </div>
+    </section>
+
+    <!-- WhatsApp Float Button -->
+    <a href="https://wa.me/27630740545" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- About Us Section -->
+    <section class="about-us" id="about">
+        <div class="container">
+            <div class="about-content" data-aos="fade-up">
+                <div class="about-image" data-aos="fade-right">
+                    <img src="who we are.jpg" alt="Lelema Consultants Team">
+                </div>
+                <div class="about-text">
+                    <h2 class="about-title" data-aos="fade-up">Who We Are</h2>
+                    <div class="about-description" data-aos="fade-up" data-aos-delay="200">
+                        <p>Lelema Consultants is a leading data analytics and business intelligence firm, helping businesses harness data for smarter decisions.</p>
+                        <p>Our expert team delivers tailored solutions to drive growth and efficiency, partnering closely with clients for measurable results.</p>
+                    </div>
+                    <a href="about-us.html" class="read-more-btn" data-aos="fade-up" data-aos-delay="400">Learn More →</a>
+                    <div class="about-button" data-aos="fade-up" data-aos-delay="600">
+                        <a href="#contact" class="btn btn-primary">Contact Us</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="about-shape about-shape-1"></div>
+        <div class="about-shape about-shape-2"></div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="container">
+            <div class="services-intro" data-aos="fade-up">
+                <h2 class="services-title">Our Consulting Services</h2>
+                <p class="services-description">We offer comprehensive data and business intelligence services designed to help you make informed decisions, optimize processes, and drive business growth.</p>
+            </div>
+            <div class="services-list" data-aos="fade-up" data-aos-delay="200">
+                <div class="service-item" data-aos="fade-up" data-aos-delay="300">
+                    <div class="service-image">
+                        <img src="Business intelligence.jpg" alt="Business Intelligence Reporting">
+                    </div>
+                    <div class="service-content">
+                        <i class="fas fa-chart-bar service-icon"></i>
+                        <h3>Business Intelligence (BI) Reporting</h3>
+                        <p>Unlock the power of your data with our BI reporting services. We help you make informed decisions by providing real-time insights into your operations, sales, and customer behavior.</p>
+                        <a href="bi-reporting.html" class="read-more-btn">Learn More →</a>
+                        <div class="service-buttons">
+                            <a href="bi-reporting.html" class="btn btn-primary">Explore BI Reporting →</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="service-item" data-aos="fade-up" data-aos-delay="400">
+                    <div class="service-image">
+                        <img src="data.jpg" alt="Data Analysis">
+                    </div>
+                    <div class="service-content">
+                        <i class="fas fa-database service-icon"></i>
+                        <h3>Data Analysis</h3>
+                        <p>Our data analysis services help you extract insights from your data, identify trends, and optimize your operations. From statistical analysis to data visualization, we've got you covered.</p>
+                        <a href="data-analysis.html" class="read-more-btn">Learn More →</a>
+                        <div class="service-buttons">
+                            <a href="data-analysis.html" class="btn btn-primary">Explore Data Analysis →</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="service-item" data-aos="fade-up" data-aos-delay="500">
+                    <div class="service-image">
+                        <img src="patrick-konior-FwHJ6mJjVd4-unsplash.jpg" alt="System Simuation">
+                    </div>
+                    <div class="service-content">
+                        <i class="fas fa-project-diagram service-icon"></i>
+                        <h3>System Simulation</h3>
+                        <p>Simulate complex systems and processes to optimize performance, reduce costs, and improve quality. Our simulation services help you test and refine your systems before implementation.</p>
+                        <a href="system-simulation.html" class="read-more-btn">Learn More →</a>
+                        <div class="service-buttons">
+                            <a href="system-simulation.html" class="btn btn-primary">Explore Simulation →</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="service-item" data-aos="fade-up" data-aos-delay="600">
+                    <div class="service-image">
+                        <img src="Process modelling.jpg" alt="Process Modelling">
+                    </div>
+                    <div class="service-content">
+                        <i class="fas fa-cogs service-icon"></i>
+                        <h3>Process Modelling</h3>
+                        <p>Model and optimize your business processes to improve efficiency, reduce waste, and enhance customer satisfaction. Our process modelling services help you streamline your operations and achieve your goals.</p>
+                        <a href="process-modelling.html" class="read-more-btn">Learn More →</a>
+                        <div class="service-buttons">
+                            <a href="process-modelling.html" class="btn btn-primary">Explore Process Modelling →</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="services-shape services-shape-1"></div>
+        <div class="services-shape services-shape-2"></div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- Key Benefits Section -->
+    <section class="benefits" id="benefits">
+        <div class="container">
+            <h2 class="benefits-title" data-aos="fade-up">Why Partner With Us</h2>
+            <p class="benefits-description" data-aos="fade-up" data-aos-delay="200">Our tailored analytics solutions drive efficiency, growth, and smarter decisions.</p>
+            <div class="benefits-grid" data-aos="fade-up" data-aos-delay="400">
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-tachometer-alt"></i>
+                    </div>
+                    <h3>Efficiency</h3>
+                    <p>Streamline operations with data-driven insights for optimal performance.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Growth</h3>
+                    <p>Unlock revenue opportunities through targeted analytics.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-money-bill-wave"></i>
+                    </div>
+                    <h3>Cost Savings</h3>
+                    <p>Reduce waste with precise data analysis.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3>Insights</h3>
+                    <p>Gain strategic clarity with actionable intelligence.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Risk Control</h3>
+                    <p>Predict and mitigate challenges proactively.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Customer Focus</h3>
+                    <p>Understand and engage customers better.</p>
+                </div>
+            </div>
+        </div>
+        <div class="benefits-shape benefits-shape-1"></div>
+        <div class="benefits-shape benefits-shape-2"></div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- Video Section -->
+    <section class="video-section" id="video">
+        <div class="container">
+            <h2 class="video-title" data-aos="fade-up">Featured Video</h2>
+            <p class="video-description" data-aos="fade-up" data-aos-delay="200">Watch our latest video showcasing our services and expertise in data analytics and business intelligence</p>
+            <div class="video-container" data-aos="fade-up" data-aos-delay="400">
+                <div class="video-player">
+                    <video id="main-video" controls poster="data-analytics-poster.jpg">
+                        <source src="company-showcase.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <div class="video-info-panel">
+                    <div class="video-info">
+                        <h3 id="video-title">Lelema Consultants: Data Analytics Excellence</h3>
+                        <p id="video-date">Showcasing our expertise in business intelligence and data analysis</p>
+                    </div>
+                    <div class="video-actions">
+                        <button class="video-action-btn" id="share-btn" title="Share">
+                            <i class="fas fa-share-alt"></i>
+                        </button>
+                        <button class="video-action-btn" id="download-btn" title="Download">
+                            <i class="fas fa-download"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="video-shape video-shape-1"></div>
+        <div class="video-shape video-shape-2"></div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- Why Choose Us Section -->
+    <section class="why-choose-us">
+        <div class="container">
+            <div class="why-choose-us-content" data-aos="fade-up">
+                <h2 class="why-choose-us-title">Why Choose Lelema Consultants?</h2>
+                <p class="why-choose-us-description">We combine deep expertise with a client-focused approach to deliver exceptional results.</p>
+                <div class="why-choose-us-list" data-aos="fade-up" data-aos-delay="200">
+                    <div class="why-choose-us-item">
+                        <i class="fas fa-graduation-cap"></i>
+                        <div>
+                            <h3>Expert Team</h3>
+                            <p>Our consultants hold advanced degrees in data science, business analytics, and related fields, with years of practical experience across industries.</p>
+                        </div>
+                    </div>
+                    <div class="why-choose-us-item">
+                        <i class="fas fa-cogs"></i>
+                        <div>
+                            <h3>Custom Solutions</h3>
+                            <p>We don't believe in one-size-fits-all approaches. Every solution is tailored to your specific business needs and challenges.</p>
+                        </div>
+                    </div>
+                    <div class="why-choose-us-item">
+                        <i class="fas fa-handshake"></i>
+                        <div>
+                            <h3>Proven Methodology</h3>
+                            <p>Our structured approach ensures we deliver actionable insights and measurable results on time and within budget.</p>
+                        </div>
+                    </div>
+                    <div class="why-choose-us-item">
+                        <i class="fas fa-shield-alt"></i>
+                        <div>
+                            <h3>Data Security</h3>
+                            <p>We implement robust security measures to protect your sensitive business data throughout our engagement.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="why-choose-us-shape why-choose-us-shape-1"></div>
+        <div class="why-choose-us-shape why-choose-us-shape-2"></div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- Contact Us Section -->
+    <section class="contact-us" id="contact">
+        <div class="container">
+            <div class="contact-content" data-aos="fade-up">
+                <div class="contact-form">
+                    <h2 class="contact-title" id="get-in-touch-title">Get In Touch</h2>
+                    <p class="contact-description" id="get-in-touch-desc">Ready to transform your business with data? Contact us today to discuss how we can help.</p>
+                    <form action="mailto:info@lelemaconsultants.com" method="post" enctype="text/plain" data-aos="fade-up" data-aos-delay="200">
+                        <input type="text" name="name" placeholder="Your Name" required>
+                        <input type="email" name="email" placeholder="Your Email" required>
+                        <textarea name="message" placeholder="How can we help you?" required></textarea>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
+                </div>
+                <div class="contact-info">
+                    <h3>Contact Details</h3>
+                    <p><i class="fas fa-envelope"></i> info@lelemaconsultants.com</p>
+                    <p><i class="fas fa-phone"></i> +27 12 345 6789</p>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Business Park, Sandton, South Africa</p>
+                    <h3>Business Hours</h3>
+                    <p><i class="fas fa-clock"></i> Monday - Friday: 8:00 AM - 5:00 PM</p>
+                    <p><i class="fas fa-clock"></i> Saturday - Sunday: Closed</p>
+                </div>
+            </div>
+        </div>
+        <div class="contact-shape contact-shape-1"></div>
+        <div class="contact-shape contact-shape-2"></div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                <div class="footer-logo">
+                    <img src="lelema-logo-white.png" alt="Lelema Consultants Logo">
+                </div>
+                <p>Empowering businesses with data-driven insights and innovative solutions for sustainable growth.</p>
+                <div class="footer-social">
+                    <div class="social-icons">
+                        <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Services</h3>
+                <a href="bi-reporting.html">Business Intelligence →</a>
+                <a href="data-analysis.html">Data Analysis →</a>
+                <a href="system-simulation.html">System Simulation →</a>
+                <a href="process-modelling.html">Process Modelling →</a>
+            </div>
+            <div class="footer-column">
+                <h3>Company</h3>
+                <a href="about-us.html">About Us →</a>
+                <a href="team.html">Our Team →</a>
+                <a href="careers.html">Careers →</a>
+                <a href="privacy-policy.html">Privacy Policy →</a>
+            </div>
+            <div class="footer-column">
+                <h3>Resources</h3>
+                <a href="case-studies.html">Case Studies →</a>
+                <a href="faq.html">FAQ →</a>
+                <a href="#video">Videos →</a>
+                <a href="contact.html">Contact →</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Lelema Consultants. All rights reserved. | Designed by <a href="#">Lelema Design Team</a></p>
+        </div>
+    </footer>
+
+    <!-- Cookies Pop-Up -->
+    <div class="cookies-popup" id="cookies-popup">
+        <p class="cookies-text">We use cookies to enhance your experience. By continuing to visit this site you agree to our use of cookies. <a href="privacy-policy.html">Learn more</a></p>
+        <div class="cookies-buttons">
+            <button class="cookies-btn cookies-btn-primary" id="accept-cookies">Accept</button>
+            <button class="cookies-btn cookies-btn-outline" id="decline-cookies">Decline</button>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize AOS
+            AOS.init({
+                duration: 800,
+                easing: 'ease-in-out',
+                once: true
+            });
+
+            // Typing effect
+            const typingText = document.querySelector('.typing-text');
+            const phrases = ['Data Analytics', 'Business Intelligence', 'Process Optimization', 'Smart Decisions'];
+            let phraseIndex = 0;
+            let charIndex = 0;
+            let isDeleting = false;
+            let typingSpeed = 100;
+
+            function typeEffect() {
+                const currentPhrase = phrases[phraseIndex];
+                
+                if (isDeleting) {
+                    typingText.textContent = currentPhrase.substring(0, charIndex - 1);
+                    charIndex--;
+                    typingSpeed = 50;
+                } else {
+                    typingText.textContent = currentPhrase.substring(0, charIndex + 1);
+                    charIndex++;
+                    typingSpeed = 100;
+                }
+
+                if (!isDeleting && charIndex === currentPhrase.length) {
+                    isDeleting = true;
+                    typingSpeed = 1500; // Pause at end
+                } else if (isDeleting && charIndex === 0) {
+                    isDeleting = false;
+                    phraseIndex = (phraseIndex + 1) % phrases.length;
+                    typingSpeed = 500; // Pause before typing next phrase
+                }
+
+                setTimeout(typeEffect, typingSpeed);
+            }
+
+            setTimeout(typeEffect, 1000);
+
+            // Mobile menu toggle
+            const menuToggle = document.getElementById('menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+
+            menuToggle.addEventListener('click', function() {
+                this.classList.toggle('active');
+                mobileMenu.classList.toggle('active');
+                mobileMenuOverlay.classList.toggle('active');
+            });
+
+            mobileMenuOverlay.addEventListener('click', function() {
+                menuToggle.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                this.classList.remove('active');
+            });
+
+            document.querySelectorAll('.mobile-menu .nav-link').forEach(link => {
+                link.addEventListener('click', function() {
+                    menuToggle.classList.remove('active');
+                    mobileMenu.classList.remove('active');
+                    mobileMenuOverlay.classList.remove('active');
+                });
+            });
+
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Cookies popup
+            setTimeout(function() {
+                document.getElementById('cookies-popup').classList.add('active');
+            }, 2000);
+
+            document.getElementById('accept-cookies').addEventListener('click', function() {
+                document.getElementById('cookies-popup').classList.remove('active');
+                // Here you would set a cookie to remember the choice
+            });
+
+            document.getElementById('decline-cookies').addEventListener('click', function() {
+                document.getElementById('cookies-popup').classList.remove('active');
+                // Here you would handle the decline action
+            });
+
+            // Language switcher
+            const languageBtn = document.getElementById('language-btn');
+            const languageDropdown = document.getElementById('language-dropdown');
+            const languageOptions = document.querySelectorAll('.language-option');
+
+            languageBtn.addEventListener('click', function() {
+                languageDropdown.classList.toggle('active');
+            });
+
+            document.addEventListener('click', function(e) {
+                if (!languageBtn.contains(e.target) && !languageDropdown.contains(e.target)) {
+                    languageDropdown.classList.remove('active');
+                }
+            });
+
+            // Translation functionality
+            const translations = {
+                en: {
+                    // English translations (default)
+                },
+                ar: {
+                    // Arabic translations
+                    'Home': 'الرئيسية',
+                    'Services': 'الخدمات',
+                    'Benefits': 'الفوائد',
+                    'About': 'من نحن',
+                    'Video': 'فيديو',
+                    'Contact': 'اتصل بنا',
+                    'Transform Your Business with': 'طور عملك مع',
+                    'Data Analytics': 'تحليل البيانات',
+                    'Business Intelligence': 'ذكاء الأعمال',
+                    'Process Optimization': 'تحسين العمليات',
+                    'Smart Decisions': 'قرارات ذكية',
+                    'Unlock the power of data with our expert consulting services. From business intelligence to process optimization, we help you make smarter decisions and drive growth.': 'أطلق العنان لقوة البيانات مع خدمات الاستشارات الخبيرة لدينا. من ذكاء الأعمال إلى تحسين العمليات، نساعدك على اتخاذ قرارات أكثر ذكاءً وتعزيز النمو.',
+                    'Our Services': 'خدماتنا',
+                    'Get Started': 'ابدأ الآن',
+                    'Who We Are': 'من نحن',
+                    'Lelema Consultants is a leading data analytics and business intelligence firm, helping businesses harness data for smarter decisions.': 'ليليما للاستشارات هي شركة رائدة في تحليل البيانات وذكاء الأعمال، تساعد الشركات على تسخير البيانات لاتخاذ قرارات أكثر ذكاءً.',
+                    'Our expert team delivers tailored solutions to drive growth and efficiency, partnering closely with clients for measurable results.': 'يقدم فريق الخبراء لدينا حلولاً مخصصة لدفع النمو والكفاءة، والشراكة الوثيقة مع العملاء لتحقيق نتائج قابلة للقياس.',
+                    'Learn More': 'اقرأ المزيد',
+                    'Contact Us': 'اتصل بنا',
+                    'Our Consulting Services': 'خدمات الاستشارات لدينا',
+                    'We offer comprehensive data and business intelligence services designed to help you make informed decisions, optimize processes, and drive business growth.': 'نقدم خدمات شاملة للبيانات وذكاء الأعمال مصممة لمساعدتك على اتخاذ قرارات مستنيرة، وتحسين العمليات، ودفع نمو الأعمال.',
+                    'Business Intelligence (BI) Reporting': 'تقارير ذكاء الأعمال',
+                    'Unlock the power of your data with our BI reporting services. We help you make informed decisions by providing real-time insights into your operations, sales, and customer behavior.': 'أطلق العنان لقوة بياناتك مع خدمات تقارير ذكاء الأعمال لدينا. نساعدك على اتخاذ قرارات مستنيرة من خلال تقديم رؤى في الوقت الحقيقي حول عملياتك ومبيعاتك وسلوك العملاء.',
+                    'Explore BI Reporting': 'استكشف تقارير ذكاء الأعمال',
+                    'Data Analysis': 'تحليل البيانات',
+                    'Our data analysis services help you extract insights from your data, identify trends, and optimize your operations. From statistical analysis to data visualization, we\'ve got you covered.': 'تساعدك خدمات تحليل البيانات لدينا على استخراج الرؤى من بياناتك، وتحديد الاتجاهات، وتحسين عملياتك. من التحليل الإحصائي إلى تصور البيانات، لدينا كل ما تحتاجه.',
+                    'Explore Data Analysis': 'استكشف تحليل البيانات',
+                    'System Simulation': 'محاكاة النظام',
+                    'Simulate complex systems and processes to optimize performance, reduce costs, and improve quality. Our simulation services help you test and refine your systems before implementation.': 'قم بمحاكاة الأنظمة والعمليات المعقدة لتحسين الأداء، وتقليل التكاليف، وتحسين الجودة. تساعدك خدمات المحاكاة لدينا على اختبار وتحسين أنظمتك قبل التنفيذ.',
+                    'Explore Simulation': 'استكشف المحاكاة',
+                    'Process Modelling': 'نمذجة العمليات',
+                    'Model and optimize your business processes to improve efficiency, reduce waste, and enhance customer satisfaction. Our process modelling services help you streamline your operations and achieve your goals.': 'قم بنمذجة وتحسين عمليات عملك لتحسين الكفاءة، وتقليل الهدر، وتعزيز رضا العملاء. تساعدك خدمات نمذجة العمليات لدينا على تبسيط عملياتك وتحقيق أهدافك.',
+                    'Explore Process Modelling': 'استكشف نمذجة العمليات',
+                    'Why Partner With Us': 'لماذا تشاركنا',
+                    'Our tailored analytics solutions drive efficiency, growth, and smarter decisions.': 'تدفع حلول التحليلات المخصصة لدينا الكفاءة والنمو والقرارات الأكثر ذكاءً.',
+                    'Efficiency': 'الكفاءة',
+                    'Streamline operations with data-driven insights for optimal performance.': 'تبسيط العمليات مع رؤى مدفوعة بالبيانات للأداء الأمثل.',
+                    'Growth': 'النمو',
+                    'Unlock revenue opportunities through targeted analytics.': 'فتح فرص الإيرادات من خلال التحليلات المستهدفة.',
+                    'Cost Savings': 'توفير التكاليف',
+                    'Reduce waste with precise data analysis.': 'تقليل الهدر مع تحليل دقيق للبيانات.',
+                    'Insights': 'الرؤى',
+                    'Gain strategic clarity with actionable intelligence.': 'اكتساب وضوح استراتيجي مع معلومات استخباراتية قابلة للتنفيذ.',
+                    'Risk Control': 'التحكم في المخاطر',
+                    'Predict and mitigate challenges proactively.': 'توقع التحديات والتخفيف منها بشكل استباقي.',
+                    'Customer Focus': 'التركيز على العملاء',
+                    'Understand and engage customers better.': 'فهم العملاء والتفاعل معهم بشكل أفضل.',
+                    'Featured Video': 'فيديو مميز',
+                    'Watch our latest video showcasing our services and expertise in data analytics and business intelligence': 'شاهد أحدث فيديو لدينا يعرض خدماتنا وخبراتنا في تحليل البيانات وذكاء الأعمال',
+                    'Upload Your Video': 'قم بتحميل الفيديو الخاص بك',
+                    'Share your content with us': 'شارك المحتوى الخاص بك معنا',
+                    'Choose Video': 'اختر الفيديو',
+                    'No video uploaded yet': 'لم يتم تحميل فيديو بعد',
+                    'Why Choose Lelema Consultants?': 'لماذا تختار ليليما للاستشارات؟',
+                    'We combine deep expertise with a client-focused approach to deliver exceptional results.': 'نجمع بين الخبرة العميقة ونهج يركز على العميل لتقديم نتائج استثنائية.',
+                    'Expert Team': 'فريق خبير',
+                    'Our consultants hold advanced degrees in data science, business analytics, and related fields, with years of practical experience across industries.': 'يحمل مستشارونا درجات متقدمة في علوم البيانات وتحليلات الأعمال والمجالات ذات الصلة، مع سنوات من الخبرة العملية عبر الصناعات.',
+                    'Custom Solutions': 'حلول مخصصة',
+                    'We don\'t believe in one-size-fits-all approaches. Every solution is tailored to your specific business needs and challenges.': 'نحن لا نؤمن بنهج واحد يناسب الجميع. كل حل مصمم خصيصًا لاحتياجات وتحديات عملك المحددة.',
+                    'Proven Methodology': 'منهجية مثبتة',
+                    'Our structured approach ensures we deliver actionable insights and measurable results on time and within budget.': 'يضمن نهجنا المنظم تقديم رؤى قابلة للتنفيذ ونتائج قابلة للقياس في الوقت المحدد وضمن الميزانية.',
+                    'Data Security': 'أمن البيانات',
+                    'We implement robust security measures to protect your sensitive business data throughout our engagement.': 'نقوم بتنفيذ تدابير أمنية قوية لحماية بيانات عملك الحساسة طوال فترة تعاملنا.',
+                    'Get In Touch': 'تواصل معنا',
+                    'Ready to transform your business with data? Contact us today to discuss how we can help.': 'هل أنت مستعد لتحويل عملك باستخدام البيانات؟ اتصل بنا اليوم لمناقشة كيف يمكننا المساعدة.',
+                    'Your Name': 'اسمك',
+                    'Your Email': 'بريدك الإلكتروني',
+                    'How can we help you?': 'كيف يمكننا مساعدتك؟',
+                    'Send Message': 'إرسال رسالة',
+                    'Contact Details': 'تفاصيل الاتصال',
+                    'Business Hours': 'ساعات العمل',
+                    'Monday - Friday: 8:00 AM - 5:00 PM': 'الاثنين - الجمعة: 8:00 صباحًا - 5:00 مساءً',
+                    'Saturday - Sunday: Closed': 'السبت - الأحد: مغلق',
+                    'Empowering businesses with data-driven insights and innovative solutions for sustainable growth.': 'تمكين الشركات من خلال رؤى مدفوعة بالبيانات وحلول مبتكرة للنمو المستدام.',
+                    'Services': 'الخدمات',
+                    'Business Intelligence': 'ذكاء الأعمال',
+                    'Data Analysis': 'تحليل البيانات',
+                    'System Simulation': 'محاكاة النظام',
+                    'Process Modelling': 'نمذجة العمليات',
+                    'Company': 'الشركة',
+                    'About Us': 'من نحن',
+                    'Our Team': 'فريقنا',
+                    'Careers': 'وظائف',
+                    'Privacy Policy': 'سياسة الخصوصية',
+                    'Resources': 'الموارد',
+                    'Case Studies': 'دراسات الحالة',
+                    'FAQ': 'الأسئلة الشائعة',
+                    'Videos': 'فيديوهات',
+                    'Contact': 'اتصل بنا',
+                    'All rights reserved.': 'جميع الحقوق محفوظة.',
+                    'Designed by': 'تم التصميم بواسطة',
+                    'We use cookies to enhance your experience. By continuing to visit this site you agree to our use of cookies.': 'نستخدم ملفات تعريف الارتباط لتحسين تجربتك. من خلال الاستمرار في زيارة هذا الموقع، فإنك توافق على استخدامنا لملفات تعريف الارتباط.',
+                    'Learn more': 'اعرف المزيد',
+                    'Accept': 'قبول',
+                    'Decline': 'رفض'
+                }
+            };
+
+            // Function to translate the page
+            function translatePage(lang) {
+                if (lang === 'en') {
+                    // Reset to English (default)
+                    document.documentElement.lang = 'en';
+                    document.documentElement.dir = 'ltr';
+                    document.body.style.textAlign = '';
+                    languageBtn.innerHTML = '<i class="fas fa-globe"></i> EN';
+                    
+                    // Reset all translated elements
+                    document.querySelectorAll('[data-original-text]').forEach(el => {
+                        el.textContent = el.getAttribute('data-original-text');
+                        el.removeAttribute('data-original-text');
+                    });
+                    
+                    document.querySelectorAll('[data-original-html]').forEach(el => {
+                        el.innerHTML = el.getAttribute('data-original-html');
+                        el.removeAttribute('data-original-html');
+                    });
+                    
+                    document.querySelectorAll('[data-original-placeholder]').forEach(el => {
+                        el.setAttribute('placeholder', el.getAttribute('data-original-placeholder'));
+                        el.removeAttribute('data-original-placeholder');
+                    });
+                    
+                    document.querySelectorAll('[data-original-value]').forEach(el => {
+                        el.value = el.getAttribute('data-original-value');
+                        el.removeAttribute('data-original-value');
+                    });
+                    
+                    // Reset CSS for RTL-specific adjustments
+                    document.querySelectorAll('.rtl-adjusted').forEach(el => {
+                        el.classList.remove('rtl-adjusted');
+                    });
+                    
+                    return;
+                }
+                
+                // Set language and direction for Arabic
+                if (lang === 'ar') {
+                    document.documentElement.lang = 'ar';
+                    document.documentElement.dir = 'rtl';
+                    languageBtn.innerHTML = '<i class="fas fa-globe"></i> AR';
+                    
+                    // Add RTL-specific CSS adjustments
+                    document.querySelectorAll('.navbar, .contact-content, .footer-container').forEach(el => {
+                        el.classList.add('rtl-adjusted');
+                    });
+                    
+                    // First pass: Store original text content for all elements
+                    const allElements = document.querySelectorAll('*');
+                    allElements.forEach(el => {
+                        // Skip elements that should not be translated
+                        if (el.tagName === 'SCRIPT' || el.tagName === 'STYLE' || 
+                            el.tagName === 'META' || el.tagName === 'LINK' || 
+                            el.classList.contains('no-translate')) {
+                            return;
+                        }
+                        
+                        // Store original HTML for elements with complex content
+                        if (el.children.length > 0 && el.textContent.trim() && !el.hasAttribute('data-original-html')) {
+                            const directTextNodes = Array.from(el.childNodes)
+                                .filter(node => node.nodeType === Node.TEXT_NODE && node.textContent.trim());
+                            
+                            if (directTextNodes.length > 0) {
+                                el.setAttribute('data-original-html', el.innerHTML);
+                            }
+                        }
+                    });
+                    
+                    // Explicitly handle "Get In Touch" section
+                    const getInTouchTitle = document.getElementById('get-in-touch-title');
+                    if (getInTouchTitle) {
+                        getInTouchTitle.setAttribute('data-original-text', getInTouchTitle.textContent);
+                        getInTouchTitle.textContent = translations[lang]['Get In Touch'] || 'تواصل معنا';
+                    }
+                    
+                    const getInTouchDesc = document.getElementById('get-in-touch-desc');
+                    if (getInTouchDesc) {
+                        getInTouchDesc.setAttribute('data-original-text', getInTouchDesc.textContent);
+                        getInTouchDesc.textContent = translations[lang]['Ready to transform your business with data? Contact us today to discuss how we can help.'] || 'هل أنت مستعد لتحويل عملك باستخدام البيانات؟ اتصل بنا اليوم لمناقشة كيف يمكننا المساعدة.';
+                    }
+                    
+                    // Second pass: Translate all text content
+                    // More comprehensive selector to catch all possible text-containing elements
+                    const elements = document.querySelectorAll('h1, h2, h3, h4, h5, h6, p, a, button, span, label, div, li, strong, em, small, td, th, caption, figcaption, blockquote, cite, input[placeholder], textarea[placeholder], input[type="submit"], input[type="button"], input[value]');
+                    
+                    elements.forEach(el => {
+                        // Skip elements that have already been fully translated or have no text content
+                        if (el.classList.contains('fully-translated') || !el.textContent.trim()) return;
+                        
+                        // Skip script and style elements
+                        if (el.tagName === 'SCRIPT' || el.tagName === 'STYLE') return;
+                        
+                        // Skip elements that were explicitly handled
+                        if (el.id === 'get-in-touch-title' || el.id === 'get-in-touch-desc') return;
+                        
+                        // Handle form elements
+                        if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                            // Handle placeholder
+                            const placeholder = el.getAttribute('placeholder');
+                            if (placeholder && translations[lang][placeholder]) {
+                                el.setAttribute('data-original-placeholder', placeholder);
+                                el.setAttribute('placeholder', translations[lang][placeholder]);
+                            } else if (placeholder && !translations[lang][placeholder]) {
+                                // Add missing translation
+                                translations[lang][placeholder] = translateFallback(placeholder);
+                                el.setAttribute('data-original-placeholder', placeholder);
+                                el.setAttribute('placeholder', translations[lang][placeholder]);
+                            }
+                            
+                            // Handle value for buttons and inputs
+                            if (el.type === 'submit' || el.type === 'button' || el.type === 'reset') {
+                                const value = el.value;
+                                if (value && translations[lang][value]) {
+                                    el.setAttribute('data-original-value', value);
+                                    el.value = translations[lang][value];
+                                } else if (value && !translations[lang][value]) {
+                                    // Add missing translation
+                                    translations[lang][value] = translateFallback(value);
+                                    el.setAttribute('data-original-value', value);
+                                    el.value = translations[lang][value];
+                                }
+                            }
+                        } else if (el.children.length === 0 || (el.children.length === 0 && el.textContent.trim())) {
+                            // For elements with no children but with text content
+                            const text = el.textContent.trim();
+                            if (text) {
+                                if (translations[lang][text]) {
+                                    el.setAttribute('data-original-text', text);
+                                    el.textContent = translations[lang][text];
+                                } else {
+                                    // Add missing translation
+                                    translations[lang][text] = translateFallback(text);
+                                    el.setAttribute('data-original-text', text);
+                                    el.textContent = translations[lang][text];
+                                }
+                            }
+                        } else {
+                            // For elements with children, translate text nodes directly
+                            const walker = document.createTreeWalker(
+                                el,
+                                NodeFilter.SHOW_TEXT,
+                                { acceptNode: node => node.textContent.trim() ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT }
+                            );
+                            
+                            let node;
+                            while (node = walker.nextNode()) {
+                                const text = node.textContent.trim();
+                                if (text) {
+                                    if (translations[lang][text]) {
+                                        // If parent doesn't have original text stored, store it
+                                        if (!node.parentElement.hasAttribute('data-original-text')) {
+                                            node.parentElement.setAttribute('data-original-text', text);
+                                        }
+                                        node.textContent = node.textContent.replace(text, translations[lang][text]);
+                                    } else if (text.length > 1 && !text.match(/^\d+$/)) { // Skip single chars and numbers
+                                        // Add missing translation
+                                        translations[lang][text] = translateFallback(text);
+                                        if (!node.parentElement.hasAttribute('data-original-text')) {
+                                            node.parentElement.setAttribute('data-original-text', text);
+                                        }
+                                        node.textContent = node.textContent.replace(text, translations[lang][text]);
+                                    }
+                                }
+                            }
+                        }
+                        
+                        // Mark as fully translated to avoid processing again
+                        el.classList.add('fully-translated');
+                    });
+                    
+                    // Special handling for form elements and buttons
+                    document.querySelectorAll('form').forEach(form => {
+                        const submitBtn = form.querySelector('button[type="submit"]');
+                        if (submitBtn) {
+                            const text = submitBtn.textContent.trim();
+                            if (text && translations[lang][text]) {
+                                submitBtn.setAttribute('data-original-text', text);
+                                submitBtn.textContent = translations[lang][text];
+                            } else if (text && !translations[lang][text]) {
+                                // Add missing translation
+                                translations[lang][text] = translateFallback(text);
+                                submitBtn.setAttribute('data-original-text', text);
+                                submitBtn.textContent = translations[lang][text];
+                            }
+                        }
+                    });
+                    
+                    // Apply RTL-specific styling adjustments
+                    applyRtlStyling();
+                }
+            }
+            
+            // Helper function to generate fallback translations for missing items
+            function translateFallback(text) {
+                // This is a simple fallback that would be replaced with a proper translation API in production
+                // For now, we'll add a marker to show it's auto-translated
+                return "⟪" + text + "⟫";
+            }
+            
+            // Apply RTL-specific styling adjustments
+            function applyRtlStyling() {
+                // Adjust padding and margins for RTL layout
+                document.querySelectorAll('.rtl-adjusted').forEach(el => {
+                    // Swap padding/margin left and right
+                    const style = window.getComputedStyle(el);
+                    const paddingLeft = style.paddingLeft;
+                    const paddingRight = style.paddingRight;
+                    const marginLeft = style.marginLeft;
+                    const marginRight = style.marginRight;
+                    
+                    if (paddingLeft !== paddingRight) {
+                        el.style.paddingLeft = paddingRight;
+                        el.style.paddingRight = paddingLeft;
+                    }
+                    
+                    if (marginLeft !== marginRight) {
+                        el.style.marginLeft = marginRight;
+                        el.style.marginRight = marginLeft;
+                    }
+                });
+            }
+
+            // Handle language selection
+            languageOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    const lang = this.getAttribute('data-lang');
+                    translatePage(lang);
+                    languageDropdown.classList.remove('active');
+                    
+                    // Store language preference
+                    localStorage.setItem('preferredLanguage', lang);
+                });
+            });
+
+            // Check for stored language preference
+            const storedLang = localStorage.getItem('preferredLanguage');
+            if (storedLang) {
+                translatePage(storedLang);
+            }
+
+            // Enhanced video functionality
+            const videoPlayer = document.getElementById('main-video');
+            const shareBtn = document.getElementById('share-btn');
+            const fullscreenBtn = document.getElementById('fullscreen-btn');
+            const playBtn = document.getElementById('play-btn');
+            const volumeBtn = document.getElementById('volume-btn');
+            const progress = document.querySelector('.video-progress');
+            const progressFilled = document.querySelector('.video-progress-filled');
+            const timeDisplay = document.querySelector('.video-time');
+            
+            // Initialize video
+            videoPlayer.addEventListener('loadedmetadata', function() {
+                // Set initial time display
+                updateTimeDisplay();
+                
+                // Create a poster frame if video can't be loaded
+                if (videoPlayer.readyState === 0) {
+                    videoPlayer.poster = 'data-analytics-poster.jpg';
+                }
+            });
+            
+            // Play/pause functionality
+            playBtn.addEventListener('click', function() {
+                if (videoPlayer.paused) {
+                    videoPlayer.play();
+                    playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                } else {
+                    videoPlayer.pause();
+                    playBtn.innerHTML = '<i class="fas fa-play"></i>';
+                }
+            });
+            
+            // Update play button icon when video plays/pauses
+            videoPlayer.addEventListener('play', function() {
+                playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+            });
+            
+            videoPlayer.addEventListener('pause', function() {
+                playBtn.innerHTML = '<i class="fas fa-play"></i>';
+            });
+            
+            // Volume control
+            volumeBtn.addEventListener('click', function() {
+                if (videoPlayer.muted) {
+                    videoPlayer.muted = false;
+                    volumeBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+                } else {
+                    videoPlayer.muted = true;
+                    volumeBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
+                }
+            });
+            
+            // Progress bar functionality
+            videoPlayer.addEventListener('timeupdate', function() {
+                // Update progress bar
+                const percent = (videoPlayer.currentTime / videoPlayer.duration) * 100;
+                progressFilled.style.width = `${percent}%`;
+                
+                // Update time display
+                updateTimeDisplay();
+            });
+            
+            // Click on progress bar to seek
+            progress.addEventListener('click', function(e) {
+                const progressTime = (e.offsetX / progress.offsetWidth) * videoPlayer.duration;
+                videoPlayer.currentTime = progressTime;
+            });
+            
+            // Format time for display
+            function formatTime(seconds) {
+                const minutes = Math.floor(seconds / 60);
+                const remainingSeconds = Math.floor(seconds % 60);
+                return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+            }
+            
+            // Update time display
+            function updateTimeDisplay() {
+                const currentTime = formatTime(videoPlayer.currentTime);
+                const duration = formatTime(videoPlayer.duration || 0);
+                timeDisplay.textContent = `${currentTime} / ${duration}`;
+            }
+            
+            // Enable sharing
+            shareBtn.addEventListener('click', function() {
+                if (navigator.share) {
+                    navigator.share({
+                        title: 'Lelema Consultants: Data Analytics Excellence',
+                        text: 'Check out this video showcasing Lelema Consultants expertise in data analytics',
+                        url: window.location.href
+                    });
+                } else {
+                    alert('Sharing is not supported on this browser');
+                }
+            });
+            
+            // Enable fullscreen
+            fullscreenBtn.addEventListener('click', function() {
+                if (videoPlayer.requestFullscreen) {
+                    videoPlayer.requestFullscreen();
+                } else if (videoPlayer.webkitRequestFullscreen) { /* Safari */
+                    videoPlayer.webkitRequestFullscreen();
+                } else if (videoPlayer.msRequestFullscreen) { /* IE11 */
+                    videoPlayer.msRequestFullscreen();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
